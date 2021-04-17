@@ -2,6 +2,7 @@ package com.gupta.cst438_s21_groupa_proj3;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -38,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
                             if (user != null){
                                 //user found
                                 Toast.makeText(getApplicationContext(),"Login Successful",Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(getApplicationContext(), HomepageActivity.class);
+                                startActivity(intent);
                             }else{
                                 //no user found
                                 Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
