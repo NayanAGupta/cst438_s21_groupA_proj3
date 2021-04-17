@@ -30,8 +30,15 @@ public class MainActivity extends AppCompatActivity {
         Button signUpButton = findViewById(R.id.signUp);
         Button loginButton = findViewById(R.id.login);
 
+        //onClick go to create account activity
         signUpButton.setOnClickListener(v1->{
             Intent intent = new Intent(this.getApplicationContext(), CreateAccountActivity.class);
+            startActivity(intent);
+        });
+
+        //onClick go to login activity
+        loginButton.setOnClickListener(v1->{
+            Intent intent = new Intent(this.getApplicationContext(), LoginActivity.class);
             startActivity(intent);
         });
 
