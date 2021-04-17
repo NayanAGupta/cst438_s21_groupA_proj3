@@ -23,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ParseInstallation.getCurrentInstallation().saveInBackground();
+        //ParseInstallation.getCurrentInstallation().saveInBackground();
 
         usernameText = findViewById(R.id.loginUsernameEditText);
         passwordText = findViewById(R.id.loginPasswordEditText);
