@@ -29,28 +29,23 @@ public class HomepageActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         welcomeTextView = findViewById(R.id.welcomeTextView);
-        logoutButton = findViewById(R.id.logoutButton);
 
         setSupportActionBar(toolbar);
 
         String welcomeMessage = "Welcome, "+ ParseUser.getCurrentUser().getUsername() + "!";
         welcomeTextView.setText(welcomeMessage);
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ParseUser.logOut();
-                Toast.makeText(getApplicationContext(),"You have been logged out.",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.item1:
-                Toast.makeText(this, "Item 1 selected", Toast.LENGTH_SHORT).show();
+            case R.id.logout:
+                ParseUser.logOut();
+                Toast.makeText(getApplicationContext(),"You have been logged out.",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.preferences:
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -62,7 +57,5 @@ public class HomepageActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.settings_menu, menu);
         return true;
-
-
     }
 }
