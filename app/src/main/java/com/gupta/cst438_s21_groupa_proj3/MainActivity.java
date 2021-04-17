@@ -32,13 +32,13 @@ public class MainActivity extends AppCompatActivity {
 
         //onClick go to create account activity
         signUpButton.setOnClickListener(v1->{
-            Intent intent = new Intent(this.getApplicationContext(), CreateAccountActivity.class);
+            Intent intent = new Intent(getApplicationContext(), CreateAccountActivity.class);
             startActivity(intent);
         });
 
         //onClick go to login activity
         loginButton.setOnClickListener(v1->{
-            Intent intent = new Intent(this.getApplicationContext(), LoginActivity.class);
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
         });
 

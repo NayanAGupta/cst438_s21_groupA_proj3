@@ -2,6 +2,7 @@ package com.gupta.cst438_s21_groupa_proj3;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -40,6 +41,8 @@ public class CreateAccountActivity extends AppCompatActivity {
                             if(e == null){
                                 //valid account creation
                                 Toast.makeText(getApplicationContext(),"Sign up successful",Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(getApplicationContext(), HomepageActivity.class);
+                                startActivity(intent);
                             }
                             else{
                                 //invalid account creation
