@@ -23,7 +23,7 @@ public class HomepageActivity extends AppCompatActivity {
         logoutButton = findViewById(R.id.logoutButton);
         welcomeTextView = findViewById(R.id.welcomeTextView);
 
-        String welcomeMessage = "Welcome "+ ParseUser.getCurrentUser().getUsername();
+        String welcomeMessage = "Welcome, "+ ParseUser.getCurrentUser().getUsername() + "!";
         welcomeTextView.setText(welcomeMessage);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
