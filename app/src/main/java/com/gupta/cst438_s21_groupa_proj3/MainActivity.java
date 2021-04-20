@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ParseInstallation.getCurrentInstallation().saveInBackground();
 
-        Button signUpButton = findViewById(R.id.signUp);
-        Button loginButton = findViewById(R.id.login);
+        signUpButton = findViewById(R.id.signUp);
+        loginButton = findViewById(R.id.login);
 
         //onClick go to create account activity
         signUpButton.setOnClickListener(v1->{

@@ -1,9 +1,14 @@
 package com.gupta.cst438_s21_groupa_proj3;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,27 +17,49 @@ import android.widget.Toast;
 import com.parse.ParseUser;
 
 public class HomepageActivity extends AppCompatActivity {
-    Button logoutButton;
+
+    Toolbar toolbar;
     TextView welcomeTextView;
+    Button logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
 
-        logoutButton = findViewById(R.id.logoutButton);
+        toolbar = findViewById(R.id.toolbar);
         welcomeTextView = findViewById(R.id.welcomeTextView);
 
-        String welcomeMessage = "Welcome "+ ParseUser.getCurrentUser().getUsername();
+        setSupportActionBar(toolbar);
+
+        String welcomeMessage = "Welcome, "+ ParseUser.getCurrentUser().getUsername() + "!";
         welcomeTextView.setText(welcomeMessage);
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.home:
+                Intent intent = new Intent(getApplicationContext(), HomepageActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.logout:
                 ParseUser.logOut();
                 Toast.makeText(getApplicationContext(),"You have been logged out.",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
+                Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent2);
+                return true;
+            case R.id.preferences:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings_menu, menu);
+        return true;
     }
 }
