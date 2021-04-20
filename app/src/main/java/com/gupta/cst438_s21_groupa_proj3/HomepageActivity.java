@@ -39,11 +39,15 @@ public class HomepageActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.home:
+                Intent intent = new Intent(getApplicationContext(), HomepageActivity.class);
+                startActivity(intent);
+                return true;
             case R.id.logout:
                 ParseUser.logOut();
                 Toast.makeText(getApplicationContext(),"You have been logged out.",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent2);
                 return true;
             case R.id.preferences:
                 return true;

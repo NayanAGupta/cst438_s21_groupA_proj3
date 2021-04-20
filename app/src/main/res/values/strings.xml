@@ -6,4 +6,9 @@
     <string name="back4app_client_key">9Yhzp9yahXMnvWJVhdkL6YDVBK7KjE2h2VZED1zr</string>
     <string name='logout'>LOGOUT</string>
     <string name='preferences'>PREFERENCES</string>
+    <string name='home'>HOME</string>
+    <string name='search'>SEARCH</string>
+    <string name='favorites'>FAVORITES</string>
+    <string name='submit'>SUBMIT</string>
+
 </resources>
