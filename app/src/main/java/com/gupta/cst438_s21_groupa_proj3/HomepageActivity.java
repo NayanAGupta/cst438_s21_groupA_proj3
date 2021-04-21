@@ -20,7 +20,6 @@ public class HomepageActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     TextView welcomeTextView;
-    Button logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +39,30 @@ public class HomepageActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home:
-                Intent intent = new Intent(getApplicationContext(), HomepageActivity.class);
-                startActivity(intent);
+                Intent home = new Intent(getApplicationContext(), HomepageActivity.class);
+                startActivity(home);
+                return true;
+            case R.id.favorites:
+                Intent favorites = new Intent(getApplicationContext(), Favorites.class);
+                startActivity(favorites);
+                return true;
+            case R.id.search:
+                Intent search = new Intent(getApplicationContext(), Search.class);
+                startActivity(search);
+                return true;
+            case R.id.submit:
+                Intent submit = new Intent(getApplicationContext(), Submit.class);
+                startActivity(submit);
+                return true;
+            case R.id.preferences:
+                Intent preferences = new Intent(getApplicationContext(), Preferences.class);
+                startActivity(preferences);
                 return true;
             case R.id.logout:
                 ParseUser.logOut();
                 Toast.makeText(getApplicationContext(),"You have been logged out.",Toast.LENGTH_LONG).show();
-                Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent2);
-                return true;
-            case R.id.preferences:
+                Intent logout = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(logout);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
