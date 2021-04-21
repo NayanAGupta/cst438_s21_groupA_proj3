@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/cookchelfbg"
     tools:context=".CreateAccountActivity">
 
     <EditText
@@ -11,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:textColor="@color/black"
         android:hint="Username"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,6 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:textColor="@color/black"
         android:hint="Password"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,12 +39,15 @@
 
     <Button
         android:id="@+id/createAccountButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create Account"
+        android:layout_width="177dp"
+        android:layout_height="47dp"
+        android:background="@android:color/white"
+        android:fontFamily="cursive"
+        android:text="@string/CreateAccount"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createPasswordEditText"
-        app:layout_constraintVertical_bias="0.153" />
+        app:layout_constraintVertical_bias="0.205" />
 </androidx.constraintlayout.widget.ConstraintLayout>
