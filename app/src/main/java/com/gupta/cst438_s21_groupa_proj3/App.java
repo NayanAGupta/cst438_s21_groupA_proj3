@@ -16,6 +16,8 @@ public class App extends Application {
                 .enableLocalDataStore()
                 .build()
         );
+
+        
     }
 }
 
