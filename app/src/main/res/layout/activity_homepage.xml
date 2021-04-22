@@ -14,8 +14,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="25dp"
+        android:fontFamily="cursive"
         android:text=""
-        />
+        android:textSize="30sp" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
