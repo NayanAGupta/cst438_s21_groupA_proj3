@@ -7,7 +7,7 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar"/>
+        layout="@layout/toolbar" />
 
     <TextView
         android:id="@+id/welcomeTextView"
@@ -16,5 +16,7 @@
         android:layout_below="@id/toolbar"
         android:text=""
         />
+
+
 
 </RelativeLayout>
