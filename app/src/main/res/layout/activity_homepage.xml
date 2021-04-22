@@ -7,7 +7,7 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar"/>
+        layout="@layout/toolbar" />
 
     <TextView
         android:id="@+id/welcomeTextView"
@@ -19,5 +19,16 @@
         android:fontFamily="cursive"
         android:text=""
         android:textSize="30sp" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <TextView
+            android:id="@+id/recipeList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

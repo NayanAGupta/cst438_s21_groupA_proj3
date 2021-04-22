@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">Cookshelf</string>
-
+    <string name="welcome">Welcome to Cookshelf!</string>
     <string name="back4app_server_url">https://parseapi.back4app.com/</string>
     <string name="back4app_app_id">0FhomS1VgNtycywAYLMsCg9bUF7fpeOkrsRBeCyc</string>
     <string name="back4app_client_key">9Yhzp9yahXMnvWJVhdkL6YDVBK7KjE2h2VZED1zr</string>
+    <string name="SignUp">Sign Up</string>
+    <string name="Login">Login</string>
+    <string name="CreateAccount">Create Account</string>
     <string name='logout'>LOGOUT</string>
     <string name='preferences'>PREFERENCES</string>
     <string name='home'>HOME</string>
