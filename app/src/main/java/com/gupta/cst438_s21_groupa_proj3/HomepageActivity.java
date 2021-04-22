@@ -14,7 +14,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 public class HomepageActivity extends AppCompatActivity {
 
@@ -32,7 +38,21 @@ public class HomepageActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         String welcomeMessage = "Welcome, "+ ParseUser.getCurrentUser().getUsername() + "!";
-        welcomeTextView.setText(welcomeMessage);
+        welcomeTextView.append(welcomeMessage);
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("recipe");
+        query.whereEqualTo("objectId", "nAD0ebDIcU");
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject recipe, ParseException e) {
+                if(e == null){
+                    String list = "";
+                    String recipeName = recipe.getString("name");
+                    list += "\n" + "Recipe Name: " + recipeName;
+                    welcomeTextView.append(list);
+                }
+            }
+        });
     }
 
     @Override
@@ -75,4 +95,6 @@ public class HomepageActivity extends AppCompatActivity {
         inflater.inflate(R.menu.settings_menu, menu);
         return true;
     }
+
+
 }
