@@ -28,7 +28,7 @@ public class Submit extends AppCompatActivity {
     EditText recipeImage;
     Button recipeSubmit;
 
-    ArrayList<String> recipeBookList= new ArrayList<String>();
+    List<String> recipeBookList= new ArrayList<String>();
     String currUserBookId;
 
     @Override
@@ -65,14 +65,30 @@ public class Submit extends AppCompatActivity {
                         public void done(ParseObject object, ParseException e) {
                             if (e == null){
                                 //found book
+                                //get list of current recipeID in book
                                 recipeBookList.addAll(object.getList("recipeIDList"));
-                                String title = object.getString("recipeBookTitle");
-                                Log.d("book", "Found " + title);
-                                String temp = new String();
-                                for(String entry : recipeBookList){
-                                    temp += entry;
-                                }
-                                Log.d("book", "Content: " + temp);
+
+                                //find recipe that was added
+                                ParseQuery<ParseObject> query2 = ParseQuery.getQuery("recipe");
+                                query2.whereEqualTo("name",recipeName.getText().toString());
+                                query2.orderByDescending("createdAt");
+                                query2.getFirstInBackground(new GetCallback<ParseObject>() {
+                                    @Override
+                                    public void done(ParseObject recentRecipe, ParseException e) {
+                                        if (e == null){
+                                            //found recent recipe
+                                            //add recent recipe to list of current recipeID in book and upload to database
+                                            String recentRecipeId = recentRecipe.getObjectId();
+                                            Log.d("book", "Recent recipe id: "+recentRecipeId);
+
+                                            //currently adds onto the prev list instead of replacing it
+
+                                            object.add("recipeIDList", recentRecipeId);
+                                            object.saveInBackground();
+                                        }
+                                    }
+                                });
+
                                 Toast.makeText(getApplicationContext(),"Submission Successful",Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(getApplicationContext(), HomepageActivity.class);
                                 startActivity(intent);
