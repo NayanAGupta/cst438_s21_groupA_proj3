@@ -12,14 +12,15 @@
 
     <TextView
         android:id="@+id/changeUsernameEditText"
-        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_below="@id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
         android:fontFamily="cursive"
         android:text="@string/change_username"
-        android:textSize="30sp"
-        android:layout_below="@id/toolbar"/>
+        android:textColor="#000000"
+        android:textSize="30sp" />
 
     <EditText
         android:id="@+id/oUN"
@@ -41,23 +42,15 @@
 
     <TextView
         android:id="@+id/changePasswordEditText"
-        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/nUN"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:fontFamily="cursive"
         android:text="@string/change_password"
-        android:textSize="30sp"
-        android:layout_below="@id/nUN"/>
-
-    <EditText
-        android:id="@+id/oPW"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:hint="@string/old_password"
-        android:textAlignment="center"
-        android:layout_below="@id/changePasswordEditText"/>
+        android:textColor="#000000"
+        android:textSize="30sp" />
 
     <EditText
         android:id="@+id/nPW"
@@ -66,16 +59,16 @@
         android:layout_marginTop="20dp"
         android:hint="@string/new_password"
         android:textAlignment="center"
-        android:layout_below="@id/oPW"/>
+        android:layout_below="@id/changePasswordEditText"/>
 
     <EditText
-        android:id="@+id/cNPW"
+        android:id="@+id/cPW"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/nPW"
         android:layout_marginTop="20dp"
-        android:hint="@string/confirm_new_password"
-        android:textAlignment="center"
-        android:layout_below="@id/nPW"/>
+        android:hint="@string/confirm_password"
+        android:textAlignment="center" />
 
     <Button
         android:id="@+id/confirmButton"
@@ -84,7 +77,9 @@
         android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
         android:text="@string/confirm"
-        android:layout_below="@id/cNPW"/>
+        android:layout_below="@id/cPW"/>
+
+
 
 
 </RelativeLayout>

@@ -15,21 +15,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.ParseException;
 import com.parse.ParseUser;
 
 public class Preferences extends AppCompatActivity {
 
+    ParseUser currentUser;
+
     Toolbar toolbar;
 
-    TextView changeUN;
     EditText oUN;
     EditText nUN;
-
-    TextView changePW;
-    EditText oPW;
     EditText nPW;
     EditText cNPW;
-
     Button confirm;
 
     @Override
@@ -37,34 +35,81 @@ public class Preferences extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
 
+        currentUser = ParseUser.getCurrentUser();
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Preferences");
 
-//        changeUN = findViewById(R.id.changeUsernameEditText);
         oUN = findViewById(R.id.oUN);
         nUN = findViewById(R.id.nUN);
-
-//        changePW = findViewById(R.id.changePasswordEditText);
-        oPW = findViewById(R.id.oPW);
         nPW = findViewById(R.id.nPW);
-        cNPW = findViewById(R.id.cNPW);
-
+        cNPW = findViewById(R.id.cPW);
         confirm =findViewById(R.id.confirmButton);
 
         confirm.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 // all fields empty
-                if((oUN.getText().toString().isEmpty() && nUN.getText().toString().isEmpty())
-                        && (oPW.getText().toString().isEmpty() && nPW.getText().toString().isEmpty() && cNPW.getText().toString().isEmpty())) {
-                            Toast.makeText(getApplicationContext(),"No fields changed",Toast.LENGTH_LONG).show();
+                if(oUN.getText().toString().isEmpty() && nUN.getText().toString().isEmpty()
+                        && nPW.getText().toString().isEmpty() && cNPW.getText().toString().isEmpty()) {
+                    Toast.makeText(getApplicationContext(),"No fields changed",Toast.LENGTH_SHORT).show();
                 }
-                // one field empty
-                else if ( (oUN.getText().toString().isEmpty() || nUN.getText().toString().isEmpty())
-                        && (oPW.getText().toString().isEmpty() || nPW.getText().toString().isEmpty() || cNPW.getText().toString().isEmpty())) {
-                    Toast.makeText(getApplicationContext(),"Field Empty",Toast.LENGTH_LONG).show();
+                // username change
+                if (!oUN.getText().toString().isEmpty() || !nUN.getText().toString().isEmpty()) {
+                    if (oUN.getText().toString().equals(currentUser.get("username").toString())) {
+                        // no new username
+                        if (oUN.getText().toString().equals(nUN.getText().toString())) {
+                            Toast.makeText(getApplicationContext(),"New Username is the Same",Toast.LENGTH_SHORT).show();
+                        }
+                        else if (nUN.getText().toString().isEmpty()) {
+                            Toast.makeText(getApplicationContext(),"No New Username",Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            currentUser.setUsername(nUN.getText().toString());
+                            Toast.makeText(getApplicationContext(),"Username Changed!",Toast.LENGTH_SHORT).show();
+                            currentUser.saveInBackground();
+                        }
+                    }
+                    else {
+                        // Username does not match
+                        Toast.makeText(getApplicationContext(),"Username Does Not Match",Toast.LENGTH_SHORT).show();
+                    }
                 }
+
+
+                // password change
+                if (!cNPW.getText().toString().isEmpty() && !nPW.getText().toString().isEmpty()) {
+                    if (cNPW.getText().toString().equals(nPW.getText().toString())) {
+                        currentUser.setPassword(nPW.getText().toString());
+                        Toast.makeText(getApplicationContext(),"Password Changed!",Toast.LENGTH_SHORT).show();
+                        currentUser.saveInBackground();
+                    }
+                    else {
+                        // Password does not match
+                        Toast.makeText(getApplicationContext(),"Passwords Do Not Match",Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                //   USERNAME CHANGE
+
+                // one UN field empty
+//                else if ((oUN.getText().toString().isEmpty() && !nUN.getText().toString().isEmpty()) || (!oUN.getText().toString().isEmpty() && nUN.getText().toString().isEmpty())) {
+//                    Toast.makeText(getApplicationContext(),"A Username Field is Empty",Toast.LENGTH_SHORT).show();
+//                }
+
+
+//                else if (!cNPW.getText().toString().equals(ParseUser.getCurrentUser().get("password").toString())) {
+//                    Toast.makeText(getApplicationContext(),"Password Unconfirmed",Toast.LENGTH_SHORT).show();
+//                }
+                // just username change
+
+                // just password change
+//                else if (oUN.getText().toString().isEmpty() || nUN.getText().toString().isEmpty()
+//                        && (!oPW.getText().toString().isEmpty() && !nPW.getText().toString().isEmpty() && !cNPW.getText().toString().isEmpty())) {
+//                    Toast.makeText(getApplicationContext(),"Password Changed!",Toast.LENGTH_SHORT).show();
+//                }
+
             }
         });
     }
