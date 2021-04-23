@@ -29,6 +29,13 @@ public class Preferences extends AppCompatActivity {
     EditText nPW;
     EditText cNPW;
     Button confirm;
+        // Create Options Menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings_menu, menu);
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +47,8 @@ public class Preferences extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Preferences");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         oUN = findViewById(R.id.oUN);
         nUN = findViewById(R.id.nUN);
@@ -50,15 +59,15 @@ public class Preferences extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                // all fields empty
+                    // all fields empty
                 if(oUN.getText().toString().isEmpty() && nUN.getText().toString().isEmpty()
                         && nPW.getText().toString().isEmpty() && cNPW.getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(),"No fields changed",Toast.LENGTH_SHORT).show();
                 }
-                // username change
+                    // username change
                 if (!oUN.getText().toString().isEmpty() || !nUN.getText().toString().isEmpty()) {
                     if (oUN.getText().toString().equals(currentUser.get("username").toString())) {
-                        // no new username
+                            // no new username
                         if (oUN.getText().toString().equals(nUN.getText().toString())) {
                             Toast.makeText(getApplicationContext(),"New Username is the Same",Toast.LENGTH_SHORT).show();
                         }
@@ -72,78 +81,64 @@ public class Preferences extends AppCompatActivity {
                         }
                     }
                     else {
-                        // Username does not match
+                            // Username does not match
                         Toast.makeText(getApplicationContext(),"Username Does Not Match",Toast.LENGTH_SHORT).show();
                     }
                 }
-
-
-                // password change
+                    // password change
                 if (!cNPW.getText().toString().isEmpty() && !nPW.getText().toString().isEmpty()) {
+                        // new password matches check
                     if (cNPW.getText().toString().equals(nPW.getText().toString())) {
                         currentUser.setPassword(nPW.getText().toString());
                         Toast.makeText(getApplicationContext(),"Password Changed!",Toast.LENGTH_SHORT).show();
                         currentUser.saveInBackground();
                     }
+                        // Password does not match check
                     else {
-                        // Password does not match
                         Toast.makeText(getApplicationContext(),"Passwords Do Not Match",Toast.LENGTH_SHORT).show();
                     }
                 }
-
-                //   USERNAME CHANGE
-
-                // one UN field empty
-//                else if ((oUN.getText().toString().isEmpty() && !nUN.getText().toString().isEmpty()) || (!oUN.getText().toString().isEmpty() && nUN.getText().toString().isEmpty())) {
-//                    Toast.makeText(getApplicationContext(),"A Username Field is Empty",Toast.LENGTH_SHORT).show();
-//                }
-
-
-//                else if (!cNPW.getText().toString().equals(ParseUser.getCurrentUser().get("password").toString())) {
-//                    Toast.makeText(getApplicationContext(),"Password Unconfirmed",Toast.LENGTH_SHORT).show();
-//                }
-                // just username change
-
-                // just password change
-//                else if (oUN.getText().toString().isEmpty() || nUN.getText().toString().isEmpty()
-//                        && (!oPW.getText().toString().isEmpty() && !nPW.getText().toString().isEmpty() && !cNPW.getText().toString().isEmpty())) {
-//                    Toast.makeText(getApplicationContext(),"Password Changed!",Toast.LENGTH_SHORT).show();
-//                }
-
             }
         });
     }
 
-    //  Switch to control the routing when using the drop tab in the toolbar.
+        // Back Button
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+        //  Switch to control the routing when using the drop tab in the toolbar.
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            //  Takes user to Home page
+                //  Takes user to Home page
             case R.id.home:
                 Intent home = new Intent(getApplicationContext(), HomepageActivity.class);
                 startActivity(home);
                 return true;
-            //  Takes user to Favorites
+                //  Takes user to Favorites
             case R.id.favorites:
                 Intent favorites = new Intent(getApplicationContext(), Favorites.class);
                 startActivity(favorites);
                 return true;
-            //  Takes user to Search Menu
+                //  Takes user to Search Menu
             case R.id.search:
                 Intent search = new Intent(getApplicationContext(), Search.class);
                 startActivity(search);
                 return true;
-            //  Takes user to Submit Form
+                //  Takes user to Submit Form
             case R.id.submit:
                 Intent submit = new Intent(getApplicationContext(), Submit.class);
                 startActivity(submit);
                 return true;
-            //  Takes user to Preferences page
+                //  Takes user to Preferences page
             case R.id.preferences:
                 Intent preferences = new Intent(getApplicationContext(), Preferences.class);
                 startActivity(preferences);
                 return true;
-            //  Logs user out
+                //  Logs user out
             case R.id.logout:
                 ParseUser.logOut();
                 Toast.makeText(getApplicationContext(),"You have been logged out.",Toast.LENGTH_LONG).show();
@@ -153,12 +148,5 @@ public class Preferences extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.settings_menu, menu);
-        return true;
     }
 }

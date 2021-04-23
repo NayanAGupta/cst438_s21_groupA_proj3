@@ -29,7 +29,7 @@
         android:layout_marginTop="20dp"
         android:hint="@string/old_username"
         android:textAlignment="center"
-        android:layout_below="@id/changeUsernameEditText"/>
+        android:layout_below="@id/changeUsernameEditText" />
 
     <EditText
         android:id="@+id/nUN"
@@ -59,7 +59,7 @@
         android:layout_marginTop="20dp"
         android:hint="@string/new_password"
         android:textAlignment="center"
-        android:layout_below="@id/changePasswordEditText"/>
+        android:layout_below="@id/changePasswordEditText" />
 
     <EditText
         android:id="@+id/cPW"
@@ -74,10 +74,12 @@
         android:id="@+id/confirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_below="@id/cPW"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="100dp"
         android:text="@string/confirm"
-        android:layout_below="@id/cPW"/>
+        android:layout_alignParentBottom="true" />
 
 
 
