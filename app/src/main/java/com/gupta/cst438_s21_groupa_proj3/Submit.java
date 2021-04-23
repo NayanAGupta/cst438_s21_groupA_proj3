@@ -28,7 +28,7 @@ public class Submit extends AppCompatActivity {
     EditText recipeImage;
     Button recipeSubmit;
 
-    List<String> recipeBookList= new ArrayList<String>();
+
     String currUserBookId;
 
     @Override
@@ -65,9 +65,6 @@ public class Submit extends AppCompatActivity {
                         public void done(ParseObject object, ParseException e) {
                             if (e == null){
                                 //found book
-                                //get list of current recipeID in book
-                                recipeBookList.addAll(object.getList("recipeIDList"));
-
                                 //find recipe that was added
                                 ParseQuery<ParseObject> query2 = ParseQuery.getQuery("recipe");
                                 query2.whereEqualTo("name",recipeName.getText().toString());
@@ -77,12 +74,9 @@ public class Submit extends AppCompatActivity {
                                     public void done(ParseObject recentRecipe, ParseException e) {
                                         if (e == null){
                                             //found recent recipe
-                                            //add recent recipe to list of current recipeID in book and upload to database
+                                            //add recent recipe id to book and upload to database
                                             String recentRecipeId = recentRecipe.getObjectId();
-                                            Log.d("book", "Recent recipe id: "+recentRecipeId);
-
-                                            //currently adds onto the prev list instead of replacing it
-
+                                            //Log.d("book", "Recent recipe id: "+recentRecipeId);
                                             object.add("recipeIDList", recentRecipeId);
                                             object.saveInBackground();
                                         }
