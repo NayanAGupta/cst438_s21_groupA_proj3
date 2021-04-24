@@ -4,11 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/black_menu5"
     tools:context=".Preferences">
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/changeUsernameEditText"
@@ -19,26 +22,30 @@
         android:layout_marginTop="100dp"
         android:fontFamily="cursive"
         android:text="@string/change_username"
-        android:textColor="#000000"
-        android:textSize="30sp" />
+        android:textColor="#2D2F31"
+        android:textSize="36sp" />
 
     <EditText
         android:id="@+id/oUN"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/changeUsernameEditText"
+        android:layout_marginHorizontal="70dp"
         android:layout_marginTop="20dp"
         android:hint="@string/old_username"
         android:textAlignment="center"
-        android:layout_below="@id/changeUsernameEditText" />
+        android:textSize="24sp" />
 
     <EditText
         android:id="@+id/nUN"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/oUN"
+        android:layout_marginHorizontal="70dp"
         android:layout_marginTop="20dp"
         android:hint="@string/new_username"
         android:textAlignment="center"
-        android:layout_below="@id/oUN"/>
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/changePasswordEditText"
@@ -46,42 +53,44 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/nUN"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="cursive"
         android:text="@string/change_password"
         android:textColor="#000000"
-        android:textSize="30sp" />
+        android:textSize="36sp" />
 
     <EditText
         android:id="@+id/nPW"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/changePasswordEditText"
+        android:layout_marginHorizontal="70dp"
         android:layout_marginTop="20dp"
         android:hint="@string/new_password"
         android:textAlignment="center"
-        android:layout_below="@id/changePasswordEditText" />
+        android:textSize="24sp" />
 
     <EditText
         android:id="@+id/cPW"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/nPW"
+        android:layout_marginHorizontal="70dp"
         android:layout_marginTop="20dp"
         android:hint="@string/confirm_password"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textSize="24sp" />
 
     <Button
         android:id="@+id/confirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/cPW"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="100dp"
-        android:text="@string/confirm"
-        android:layout_alignParentBottom="true" />
-
-
+        android:text="@string/confirm" />
 
 
 </RelativeLayout>
