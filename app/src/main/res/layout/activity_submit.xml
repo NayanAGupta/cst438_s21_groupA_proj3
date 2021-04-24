@@ -1,74 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Submit">
+    tools:context=".Submit"
+    android:background="@drawable/submit_background">
 
-    <Button
-        android:id="@+id/recipeSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:text="Submit Recipe"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextRecipeImage" />
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
     <EditText
         android:id="@+id/editTextRecipeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
+        android:layout_below="@id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
         android:textAlignment="viewStart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="24sp" />
 
     <EditText
         android:id="@+id/editTextRecipeList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_below="@+id/editTextRecipeName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
         android:ems="10"
         android:hint="Ingredients"
         android:inputType="textPersonName"
         android:textAlignment="viewStart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextRecipeName" />
+        android:textSize="24sp" />
 
     <EditText
         android:id="@+id/editTextRecipeDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_below="@+id/editTextRecipeList"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
         android:ems="10"
         android:hint="Description"
-        android:inputType="textPersonName"
+        android:inputType="textMultiLine"
+        android:maxLines="2"
         android:textAlignment="viewStart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextRecipeList" />
+        android:textSize="24sp" />
 
     <EditText
         android:id="@+id/editTextRecipeImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_below="@+id/editTextRecipeDescription"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
         android:ems="10"
         android:hint="Image URL"
         android:inputType="textPersonName"
         android:textAlignment="viewStart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextRecipeDescription" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/recipeSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="100dp"
+        android:layout_below="@+id/editTextRecipeImage"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Submit Recipe" />
+
+</RelativeLayout>
