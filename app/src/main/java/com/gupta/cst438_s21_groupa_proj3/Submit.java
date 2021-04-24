@@ -9,15 +9,21 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.parse.GetCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Submit extends AppCompatActivity {
 
@@ -28,6 +34,7 @@ public class Submit extends AppCompatActivity {
     EditText recipeDescription;
     EditText recipeImage;
     Button recipeSubmit;
+    String currUserBookId;
 
     // Create Options Menu
     @Override
@@ -63,13 +70,46 @@ public class Submit extends AppCompatActivity {
                 else{
                     ParseObject recipe = new ParseObject("recipe");
                     recipe.put("name",recipeName.getText().toString());
-                    recipe.addAllUnique("ingredientIDList", Arrays.asList(recipeList.getText().toString()));
+                    recipe.addAllUnique("ingredientIDList", Arrays.asList(recipeList.getText().toString())); //comma seperate with no spaces ex: ingredient1,ingredient2,
                     recipe.put("description",recipeDescription.getText().toString());
                     recipe.put("imageURL",recipeImage.getText().toString());
                     recipe.saveInBackground();
-                    Toast.makeText(getApplicationContext(),"Submission Successful",Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getApplicationContext(), HomepageActivity.class);
-                    startActivity(intent);
+
+                    //get current user's recipebook
+                    ParseUser currentUser = ParseUser.getCurrentUser();
+                    currUserBookId = currentUser.getString("recipeBookId");
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("recipeBook");
+                    query.getInBackground(currUserBookId, new GetCallback<ParseObject>() {
+                        @Override
+                        public void done(ParseObject object, ParseException e) {
+                            if (e == null){
+                                //found book
+                                //find recipe that was added
+                                ParseQuery<ParseObject> query2 = ParseQuery.getQuery("recipe");
+                                query2.whereEqualTo("name",recipeName.getText().toString());
+                                query2.orderByDescending("createdAt");
+                                query2.getFirstInBackground(new GetCallback<ParseObject>() {
+                                    @Override
+                                    public void done(ParseObject recentRecipe, ParseException e) {
+                                        if (e == null){
+                                            //found recent recipe
+                                            //add recent recipe id to book and upload to database
+                                            String recentRecipeId = recentRecipe.getObjectId();
+                                            //Log.d("book", "Recent recipe id: "+recentRecipeId);
+                                            object.add("recipeIDList", recentRecipeId);
+                                            object.saveInBackground();
+                                        }
+                                    }
+                                });
+
+                                Toast.makeText(getApplicationContext(),"Submission Successful",Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(getApplicationContext(), HomepageActivity.class);
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(getApplicationContext(),"Error querying for recipe book: "+e.getMessage(),Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
                 }
             }
         });
