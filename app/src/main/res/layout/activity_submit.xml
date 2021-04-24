@@ -50,8 +50,7 @@
         android:layout_marginTop="50dp"
         android:ems="10"
         android:hint="Description"
-        android:inputType="textMultiLine"
-        android:maxLines="2"
+        android:inputType="textPersonName"
         android:textAlignment="viewStart"
         android:textSize="24sp" />
 
