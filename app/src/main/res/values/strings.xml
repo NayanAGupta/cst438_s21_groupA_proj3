@@ -16,7 +16,7 @@
     <string name="old_username">Old Username</string>
     <string name="old_password">Old Password</string>
     <string name="new_password">New Password</string>
-    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="confirm_password">Confirm Password</string>
     <string name="new_username">New Username</string>
     <string name="change_username">Change Username</string>
     <string name="change_password">Change Password</string>
