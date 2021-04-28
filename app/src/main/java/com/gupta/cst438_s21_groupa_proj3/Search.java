@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
+import androidx.appcompat.widget.SearchView;
 
 import java.util.ArrayList;
 
@@ -18,7 +19,7 @@ public class Search extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
 
 
-    EditText search;
+    SearchView search;
     Button searchButton;
 
     @Override
