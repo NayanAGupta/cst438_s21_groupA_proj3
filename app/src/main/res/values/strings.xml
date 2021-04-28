@@ -21,5 +21,9 @@
     <string name="change_username">Change Username</string>
     <string name="change_password">Change Password</string>
     <string name="confirm">Confirm</string>
+    <string name="users">View Users</string>
+    <string name="recipes">View Recipes</string>
+    <string name="approve">Approve Recipes</string>
+
 
 </resources>

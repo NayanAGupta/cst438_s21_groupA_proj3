@@ -36,7 +36,11 @@ public class LoginActivity extends AppCompatActivity {
                     ParseUser.logInInBackground(usernameText.getText().toString(), passwordText.getText().toString(), new LogInCallback() {
                         @Override
                         public void done(ParseUser user, ParseException e) {
-                            if (user != null){
+                            if (usernameText.getText().toString().equals("admin") && passwordText.getText().toString().equals("admin")) {
+                                Intent intent = new Intent(getApplicationContext(), AdminHomepageActivity.class);
+                                startActivity(intent);
+                            }
+                            else if (user != null){
                                 //user found
                                 Toast.makeText(getApplicationContext(),"Login Successful",Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(getApplicationContext(), HomepageActivity.class);
