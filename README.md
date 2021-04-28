@@ -1,4 +1,4 @@
-# cst438_s21_groupA_proj3
+# cst438_s21_groupG_proj3
 
 # Title
   Cookshelf 

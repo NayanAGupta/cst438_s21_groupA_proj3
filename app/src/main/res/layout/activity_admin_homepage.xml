@@ -26,7 +26,7 @@
         android:fillViewport="true">
 
         <TextView
-            android:id="@+id/recipeList"
+            android:id="@+id/adminList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </androidx.core.widget.NestedScrollView>
