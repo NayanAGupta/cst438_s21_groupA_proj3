@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
                     ParseUser.logInInBackground(usernameText.getText().toString(), passwordText.getText().toString(), new LogInCallback() {
                         @Override
                         public void done(ParseUser user, ParseException e) {
-                            if (usernameText.getText().toString().equals("admin") && passwordText.getText().toString().equals("admin")) {
+                            if (ParseUser.getCurrentUser().getBoolean("admin")) {
                                 Intent intent = new Intent(getApplicationContext(), AdminHomepageActivity.class);
                                 startActivity(intent);
                             }

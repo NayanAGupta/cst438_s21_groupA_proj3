@@ -45,6 +45,7 @@ public class AdminViewUsers extends AppCompatActivity {
         adminViewUserWelcome = findViewById(R.id.adminViewUserWelcome);
         adminList = findViewById(R.id.adminList);
         deleteButton = findViewById(R.id.userDeleteButton);
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -54,10 +55,12 @@ public class AdminViewUsers extends AppCompatActivity {
         query.findInBackground((users, e) -> {
             if(e == null){
                 for(ParseUser user1: users){
+                    if (user1.getBoolean("admin")) {
+                        continue;
+                    }
                     String list = "";
                     String username = user1.getString("username");
-                    String password = user1.getString("password");
-                    list += "Username: " + username + "\n" + "Password: " + password + "\n";
+                    list += "Username: " + username + "\n";
                     adminList.append(list);
                 }
             }
@@ -90,8 +93,8 @@ public class AdminViewUsers extends AppCompatActivity {
                 return true;
             //  Takes user to Search Menu
             case R.id.recipes:
-//                Intent search = new Intent(getApplicationContext(), Search.class);
-//                startActivity(search);
+                Intent intent = new Intent(getApplicationContext(), AdminViewRecipes.class);
+                startActivity(intent);
                 return true;
             //  Takes user to Submit Form
             case R.id.approve:
