@@ -50,6 +50,9 @@ public class AdminDeleteUser extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Delete Users");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         ParseQuery<ParseUser> query = ParseUser.getQuery();
         query.findInBackground((users, e) -> {
@@ -84,6 +87,12 @@ public class AdminDeleteUser extends AppCompatActivity {
 
             }
         });
+    }
+    // Back Button
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
     //  Options menu control switch
     @Override

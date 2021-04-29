@@ -50,6 +50,9 @@ public class AdminDeleteRecipe extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Delete Recipes");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("recipe");
         query.findInBackground((recipes, e) -> {
@@ -82,6 +85,12 @@ public class AdminDeleteRecipe extends AppCompatActivity {
 
             }
         });
+    }
+    // Back Button
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
     //  Options menu control switch
     @Override

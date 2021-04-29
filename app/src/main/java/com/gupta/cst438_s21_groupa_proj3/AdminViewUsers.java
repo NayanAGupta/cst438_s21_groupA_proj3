@@ -48,6 +48,9 @@ public class AdminViewUsers extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("View Users");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         String welcomeMessage = "Here are all users" + "\n";
         adminList.append(welcomeMessage);
@@ -73,9 +76,13 @@ public class AdminViewUsers extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
-
-
+    // Back Button
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     @Override
