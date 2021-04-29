@@ -22,6 +22,10 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+
 public class HomepageActivity extends AppCompatActivity {
 
     Toolbar toolbar;
@@ -57,7 +61,8 @@ public class HomepageActivity extends AppCompatActivity {
                 if(e == null){
                     String list = "";
                     String recipeName = recipe.getString("name");
-                    list += "\n" + "Recipe Name: " + recipeName;
+                    JSONArray ingredients = recipe.getJSONArray("ingredientIDList");
+                    list += "\n" + "Recipe Name: " + recipeName + "\n" + "Ingredients: " + ingredients;
                     welcomeTextView.append(list);
                 }
             }
