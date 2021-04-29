@@ -15,6 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".AdminDeleteRecipe"></activity>
+        <activity android:name=".AdminViewRecipes"></activity>
         <activity android:name=".AdminDeleteUser"></activity>
         <activity android:name=".AdminViewUsers"></activity>
         <activity android:name=".AdminHomepageActivity"></activity>
