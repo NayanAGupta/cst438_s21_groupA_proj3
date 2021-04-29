@@ -1,24 +1,21 @@
 package com.gupta.cst438_s21_groupa_proj3;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.parse.ParseUser;
 
-public class AdminHomepageActivity extends AppCompatActivity {
+public class AdminViewUsers extends AppCompatActivity {
 
     Toolbar toolbar;
-    TextView welcomeText;
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -30,16 +27,13 @@ public class AdminHomepageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_homepage);
+        setContentView(R.layout.activity_admin_view_user);
 
-        welcomeText = findViewById(R.id.adminWelcomeTextView);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        String welcomeMessage = "Welcome, Admin" + "!\n";
-        welcomeText.setText(welcomeMessage);
     }
-    //  Options menu control switch
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -75,4 +69,6 @@ public class AdminHomepageActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 }
