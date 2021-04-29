@@ -1,56 +1,53 @@
 package com.gupta.cst438_s21_groupa_proj3;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.GetCallback;
-import com.parse.ParseException;
 
 import org.json.JSONArray;
 
-public class HomepageActivity extends AppCompatActivity {
+public class AdminViewRecipes extends AppCompatActivity {
 
     Toolbar toolbar;
-    TextView welcomeTextView;
-    TextView recipeList;
+    TextView adminList;
+    TextView adminViewUserWelcome;
+    Button deleteButton;
 
-        // Create Options Menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.settings_menu, menu);
+        inflater.inflate(R.menu.admin_menu, menu);
         return true;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_homepage);
+        setContentView(R.layout.activity_admin_view_recipes);
 
+        adminViewUserWelcome = findViewById(R.id.adminViewUserWelcome);
+        adminList = findViewById(R.id.adminList);
+        deleteButton = findViewById(R.id.userDeleteButton);
         toolbar = findViewById(R.id.toolbar);
-        welcomeTextView = findViewById(R.id.adminViewUserWelcome);
-        recipeList = findViewById(R.id.adminList);
-
         setSupportActionBar(toolbar);
 
-        String welcomeMessage = "Welcome, "+ ParseUser.getCurrentUser().getUsername() + "!\n";
-        welcomeMessage += "Here is your recipe for today!";
-        recipeList.setText(welcomeMessage);
-
+        String welcomeMessage = "Here are all recipes" + "\n";
+        adminList.append(welcomeMessage);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("recipe");
-        //query.whereEqualTo("objectId", "nAD0ebDIcU");
         query.findInBackground((recipes, e) -> {
             if(e == null){
                 for(ParseObject recipe1: recipes){
@@ -58,42 +55,48 @@ public class HomepageActivity extends AppCompatActivity {
                     String recipeName = recipe1.getString("name");
                     JSONArray ingredients = recipe1.getJSONArray("ingredientIDList");
                     list += "\n" + "Recipe Name: " + recipeName + "\n" + "Ingredients: " + ingredients;
-                    recipeList.append(list);
+                    adminList.append(list);
                 }
             }
         });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AdminDeleteRecipe.class);
+                startActivity(intent);
+            }
+        });
+
+
+
     }
 
-        //  Options menu control switch
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-                //  Takes user to Home page
+            //  Takes user to Home page
             case R.id.home:
-                Intent home = new Intent(getApplicationContext(), HomepageActivity.class);
+                Intent home = new Intent(getApplicationContext(), AdminHomepageActivity.class);
                 startActivity(home);
                 return true;
-                //  Takes user to Favorites
-            case R.id.favorites:
-                Intent favorites = new Intent(getApplicationContext(), Favorites.class);
-                startActivity(favorites);
+            //  Takes user to Favorites
+            case R.id.users:
+                Intent users = new Intent(getApplicationContext(), AdminViewUsers.class);
+                startActivity(users);
                 return true;
-                //  Takes user to Search Menu
-            case R.id.search:
-                Intent search = new Intent(getApplicationContext(), Search.class);
-                startActivity(search);
+            //  Takes user to Search Menu
+            case R.id.recipes:
+                Intent intent = new Intent(getApplicationContext(), AdminViewRecipes.class);
+                startActivity(intent);
                 return true;
-                //  Takes user to Submit Form
-            case R.id.submit:
-                Intent submit = new Intent(getApplicationContext(), Submit.class);
-                startActivity(submit);
+            //  Takes user to Submit Form
+            case R.id.approve:
+//                Intent submit = new Intent(getApplicationContext(), Submit.class);
+//                startActivity(submit);
                 return true;
-                //  Takes user to Preferences page
-            case R.id.preferences:
-                Intent preferences = new Intent(getApplicationContext(), Preferences.class);
-                startActivity(preferences);
-                return true;
-                //  Logs user out
+            //  Takes user to Preferences page
+            //  Logs user out
             case R.id.logout:
                 ParseUser.logOut();
                 Toast.makeText(getApplicationContext(),"You have been logged out.",Toast.LENGTH_LONG).show();

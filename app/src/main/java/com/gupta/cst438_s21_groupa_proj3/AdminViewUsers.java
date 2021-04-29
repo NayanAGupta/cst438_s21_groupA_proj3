@@ -1,24 +1,34 @@
 package com.gupta.cst438_s21_groupa_proj3;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-public class AdminHomepageActivity extends AppCompatActivity {
+import org.w3c.dom.Text;
+
+public class AdminViewUsers extends AppCompatActivity {
 
     Toolbar toolbar;
-    TextView welcomeText;
-
+    TextView adminList;
+    TextView adminViewUserWelcome;
+    Button deleteButton;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -30,16 +40,41 @@ public class AdminHomepageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_homepage);
+        setContentView(R.layout.activity_admin_view_user);
 
-        welcomeText = findViewById(R.id.adminViewUserWelcome);
+        adminViewUserWelcome = findViewById(R.id.adminViewUserWelcome);
+        adminList = findViewById(R.id.adminList);
+        deleteButton = findViewById(R.id.userDeleteButton);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        String welcomeMessage = "Welcome, Admin" + "!\n";
-        welcomeText.setText(welcomeMessage);
+        String welcomeMessage = "Here are all users" + "\n";
+        adminList.append(welcomeMessage);
+        ParseQuery<ParseUser> query = ParseUser.getQuery();
+        query.findInBackground((users, e) -> {
+            if(e == null){
+                for(ParseUser user1: users){
+                    String list = "";
+                    String username = user1.getString("username");
+                    String password = user1.getString("password");
+                    list += "Username: " + username + "\n" + "Password: " + password + "\n";
+                    adminList.append(list);
+                }
+            }
+        });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AdminDeleteUser.class);
+                startActivity(intent);
+            }
+        });
+
+
+
     }
-    //  Options menu control switch
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -55,8 +90,8 @@ public class AdminHomepageActivity extends AppCompatActivity {
                 return true;
             //  Takes user to Search Menu
             case R.id.recipes:
-                Intent intent = new Intent(getApplicationContext(), AdminViewRecipes.class);
-                startActivity(intent);
+//                Intent search = new Intent(getApplicationContext(), Search.class);
+//                startActivity(search);
                 return true;
             //  Takes user to Submit Form
             case R.id.approve:
@@ -75,4 +110,6 @@ public class AdminHomepageActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 }
