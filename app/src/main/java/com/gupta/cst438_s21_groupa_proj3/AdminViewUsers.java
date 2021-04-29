@@ -5,17 +5,27 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import org.w3c.dom.Text;
 
 public class AdminViewUsers extends AppCompatActivity {
 
     Toolbar toolbar;
+    TextView adminList;
+    TextView adminViewUserWelcome;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -29,8 +39,28 @@ public class AdminViewUsers extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_view_user);
 
+        adminViewUserWelcome = findViewById(R.id.adminViewUserWelcome);
+        adminList = findViewById(R.id.adminList);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        String welcomeMessage = "Here are all users" + "\n";
+        adminList.append(welcomeMessage);
+
+        ParseQuery<ParseUser> query = ParseUser.getQuery();
+        query.findInBackground((users, e) -> {
+            if(e == null){
+                for(ParseUser user1: users){
+                    String list = "";
+                    String username = user1.getString("username");
+                    String password = user1.getString("password");
+                    list += "Username: " + username + "\n" + "Password: " + password + "\n";
+                    adminList.append(list);
+                }
+            }
+        });
+
+
 
     }
 

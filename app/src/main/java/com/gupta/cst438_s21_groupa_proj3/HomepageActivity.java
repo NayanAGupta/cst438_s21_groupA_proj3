@@ -40,24 +40,23 @@ public class HomepageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_homepage);
 
         toolbar = findViewById(R.id.toolbar);
-        welcomeTextView = findViewById(R.id.adminWelcomeTextView);
+        welcomeTextView = findViewById(R.id.adminViewUserWelcome);
         recipeList = findViewById(R.id.adminList);
 
         setSupportActionBar(toolbar);
 
         String welcomeMessage = "Welcome, "+ ParseUser.getCurrentUser().getUsername() + "!\n";
         welcomeMessage += "Here is your recipe for today!";
-        welcomeTextView.setText(welcomeMessage);
+        recipeList.setText(welcomeMessage);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("recipe");
         //query.whereEqualTo("objectId", "nAD0ebDIcU");
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject recipe, ParseException e) {
-                if(e == null){
+        query.findInBackground((recipes, e) -> {
+            if(e == null){
+                for(ParseObject recipe1: recipes){
                     String list = "";
-                    String recipeName = recipe.getString("name");
-                    JSONArray ingredients = recipe.getJSONArray("ingredientIDList");
+                    String recipeName = recipe1.getString("name");
+                    JSONArray ingredients = recipe1.getJSONArray("ingredientIDList");
                     list += "\n" + "Recipe Name: " + recipeName + "\n" + "Ingredients: " + ingredients;
                     recipeList.append(list);
                 }

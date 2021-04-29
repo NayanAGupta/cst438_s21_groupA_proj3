@@ -32,7 +32,7 @@ public class AdminHomepageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_homepage);
 
-        welcomeText = findViewById(R.id.adminWelcomeTextView);
+        welcomeText = findViewById(R.id.adminViewUserWelcome);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
