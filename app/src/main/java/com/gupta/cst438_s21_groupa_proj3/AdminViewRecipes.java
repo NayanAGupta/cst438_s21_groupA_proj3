@@ -42,6 +42,7 @@ public class AdminViewRecipes extends AppCompatActivity {
         adminViewUserWelcome = findViewById(R.id.adminViewUserWelcome);
         adminList = findViewById(R.id.adminList);
         deleteButton = findViewById(R.id.userDeleteButton);
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

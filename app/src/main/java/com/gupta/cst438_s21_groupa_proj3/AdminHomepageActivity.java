@@ -19,7 +19,6 @@ public class AdminHomepageActivity extends AppCompatActivity {
     Toolbar toolbar;
     TextView welcomeText;
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -39,6 +38,7 @@ public class AdminHomepageActivity extends AppCompatActivity {
         String welcomeMessage = "Welcome, Admin" + "!\n";
         welcomeText.setText(welcomeMessage);
     }
+
     //  Options menu control switch
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
