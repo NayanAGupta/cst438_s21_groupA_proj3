@@ -2,6 +2,7 @@ package com.gupta.cst438_s21_groupa_proj3;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -74,6 +75,8 @@ public class AdminDeleteUser extends AppCompatActivity {
                 deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        //DELETE USER and their recipebook
+                        Log.d("book","username: " + user);
 
                     }
                 });
