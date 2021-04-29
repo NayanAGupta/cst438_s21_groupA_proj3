@@ -5,6 +5,16 @@
     android:layout_height="match_parent"
     tools:context=".AdminViewUsers">
 
+    <Button
+        android:id="@+id/userDeleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="120dp"
+        android:text="Delete User"
+        android:visibility="visible"
+        tools:visibility="visible" />
+
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
@@ -23,7 +33,8 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:visibility="visible">
 
         <TextView
             android:id="@+id/adminList"

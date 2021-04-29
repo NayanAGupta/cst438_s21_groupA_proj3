@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
@@ -26,6 +28,7 @@ public class AdminViewUsers extends AppCompatActivity {
     Toolbar toolbar;
     TextView adminList;
     TextView adminViewUserWelcome;
+    Button deleteButton;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -41,12 +44,12 @@ public class AdminViewUsers extends AppCompatActivity {
 
         adminViewUserWelcome = findViewById(R.id.adminViewUserWelcome);
         adminList = findViewById(R.id.adminList);
+        deleteButton = findViewById(R.id.userDeleteButton);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         String welcomeMessage = "Here are all users" + "\n";
         adminList.append(welcomeMessage);
-
         ParseQuery<ParseUser> query = ParseUser.getQuery();
         query.findInBackground((users, e) -> {
             if(e == null){
@@ -57,6 +60,14 @@ public class AdminViewUsers extends AppCompatActivity {
                     list += "Username: " + username + "\n" + "Password: " + password + "\n";
                     adminList.append(list);
                 }
+            }
+        });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AdminDeleteUser.class);
+                startActivity(intent);
             }
         });
 
