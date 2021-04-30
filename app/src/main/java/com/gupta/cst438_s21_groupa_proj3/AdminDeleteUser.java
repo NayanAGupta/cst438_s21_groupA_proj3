@@ -17,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.FunctionCallback;
@@ -83,6 +85,20 @@ public class AdminDeleteUser extends AppCompatActivity {
                         //DELETE USER and their recipebook
                         Log.d("book","username: " + user);
 
+                        //query for user using username
+                        ParseQuery<ParseUser> query = ParseUser.getQuery();
+                        query.whereEqualTo("username",user);
+                        query.getFirstInBackground(new GetCallback<ParseUser>() {
+                            @Override
+                            public void done(ParseUser object, ParseException e) {
+                                if (e == null){
+                                    Log.d("book","Found user " +object.getUsername() + " userId: " +object.getObjectId());
+                                } else {
+                                    Log.d("book","Error querying for user: " + e.getMessage());
+                                }
+                            }
+                        });
+                        //cloud code call
                         Map<String, String> parameters = new HashMap<String, String>();
                         //parameters.put("username", user);
                         // This calls the function in the Cloud Code
