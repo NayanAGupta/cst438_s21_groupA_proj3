@@ -19,12 +19,17 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.FunctionCallback;
+import com.parse.ParseCloud;
+import com.parse.ParseException;
 
 import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AdminDeleteUser extends AppCompatActivity {
     Toolbar toolbar;
@@ -78,6 +83,23 @@ public class AdminDeleteUser extends AppCompatActivity {
                         //DELETE USER and their recipebook
                         Log.d("book","username: " + user);
 
+                        Map<String, String> parameters = new HashMap<String, String>();
+                        //parameters.put("username", user);
+                        // This calls the function in the Cloud Code
+                        ParseCloud.callFunctionInBackground("test", parameters, new FunctionCallback<Map<String, Object>>() {
+                            @Override
+                            public void done(Map<String, Object> mapObject, ParseException e) {
+                                if (e == null) {
+                                    // Everything is alright
+                                    Toast.makeText(getApplicationContext(), "Answer = " + mapObject.get("answer").toString(), Toast.LENGTH_LONG).show();
+                                    Log.d("book","Answer = " + mapObject.get("answer").toString());
+                                }
+                                else {
+                                    // Something went wrong
+                                    Log.d("book","Error: " + e.getMessage());
+                                }
+                            }
+                        });
                     }
                 });
             }
