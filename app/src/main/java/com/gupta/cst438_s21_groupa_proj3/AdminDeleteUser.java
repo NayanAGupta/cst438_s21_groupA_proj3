@@ -79,43 +79,41 @@ public class AdminDeleteUser extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String user = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
+                HashMap<String, String> params = new HashMap<String, String>();
                 deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         //DELETE USER and their recipebook
                         Log.d("book","username: " + user);
 
-                        //query for user using username
-                        ParseQuery<ParseUser> query = ParseUser.getQuery();
-                        query.whereEqualTo("username",user);
-                        query.getFirstInBackground(new GetCallback<ParseUser>() {
-                            @Override
-                            public void done(ParseUser object, ParseException e) {
-                                if (e == null){
-                                    Log.d("book","Found user " +object.getUsername() + " userId: " +object.getObjectId());
-                                } else {
-                                    Log.d("book","Error querying for user: " + e.getMessage());
-                                }
-                            }
-                        });
-                        //cloud code call
-                        Map<String, String> parameters = new HashMap<String, String>();
-                        //parameters.put("username", user);
-                        // This calls the function in the Cloud Code
-                        ParseCloud.callFunctionInBackground("test", parameters, new FunctionCallback<Map<String, Object>>() {
-                            @Override
-                            public void done(Map<String, Object> mapObject, ParseException e) {
-                                if (e == null) {
-                                    // Everything is alright
-                                    Toast.makeText(getApplicationContext(), "Answer = " + mapObject.get("answer").toString(), Toast.LENGTH_LONG).show();
-                                    Log.d("book","Answer = " + mapObject.get("answer").toString());
-                                }
-                                else {
-                                    // Something went wrong
-                                    Log.d("book","Error: " + e.getMessage());
-                                }
-                            }
-                        });
+                        //not nessecary, do this feature later
+//                        //query for user using username
+//                        ParseQuery<ParseUser> query = ParseUser.getQuery();
+//                        query.whereEqualTo("username",user);
+//                        query.getFirstInBackground(new GetCallback<ParseUser>() {
+//                            @Override
+//                            public void done(ParseUser object, ParseException e) {
+//                                if (e == null){
+//                                    Log.d("book","Found user " +object.getUsername() + " userId: " +object.getObjectId());
+//                                    params.put("userId", object.getObjectId()); //add selected user to map for removal
+//                                    //cloud code call
+//                                    ParseCloud.callFunctionInBackground("deleteUserWithId", params, new FunctionCallback<Object>() {
+//                                        public void done(Object result, ParseException e) {
+//                                            if (e == null) {
+//                                                // successfully removed user
+//                                                Log.d("book","Found user:" +user+" has been removed");
+//                                            } else{
+//                                                Log.d("book", "Error trying to remove user:" +e.getMessage());
+//                                            }
+//                                        }
+//                                    });
+//
+//                                } else {
+//                                    Log.d("book","Error querying for user: " + e.getMessage());
+//                                }
+//                            }
+//                        });
+
                     }
                 });
             }
