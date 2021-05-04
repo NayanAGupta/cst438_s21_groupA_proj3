@@ -2,6 +2,7 @@ package com.gupta.cst438_s21_groupa_proj3;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,14 +17,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.FunctionCallback;
+import com.parse.ParseCloud;
+import com.parse.ParseException;
 
 import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AdminDeleteUser extends AppCompatActivity {
     Toolbar toolbar;
@@ -71,9 +79,40 @@ public class AdminDeleteUser extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String user = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
+                HashMap<String, String> params = new HashMap<String, String>();
                 deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        //DELETE USER and their recipebook
+                        Log.d("book","username: " + user);
+
+                        //not nessecary, do this feature later
+//                        //query for user using username
+//                        ParseQuery<ParseUser> query = ParseUser.getQuery();
+//                        query.whereEqualTo("username",user);
+//                        query.getFirstInBackground(new GetCallback<ParseUser>() {
+//                            @Override
+//                            public void done(ParseUser object, ParseException e) {
+//                                if (e == null){
+//                                    Log.d("book","Found user " +object.getUsername() + " userId: " +object.getObjectId());
+//                                    params.put("userId", object.getObjectId()); //add selected user to map for removal
+//                                    //cloud code call
+//                                    ParseCloud.callFunctionInBackground("deleteUserWithId", params, new FunctionCallback<Object>() {
+//                                        public void done(Object result, ParseException e) {
+//                                            if (e == null) {
+//                                                // successfully removed user
+//                                                Log.d("book","Found user:" +user+" has been removed");
+//                                            } else{
+//                                                Log.d("book", "Error trying to remove user:" +e.getMessage());
+//                                            }
+//                                        }
+//                                    });
+//
+//                                } else {
+//                                    Log.d("book","Error querying for user: " + e.getMessage());
+//                                }
+//                            }
+//                        });
 
                     }
                 });

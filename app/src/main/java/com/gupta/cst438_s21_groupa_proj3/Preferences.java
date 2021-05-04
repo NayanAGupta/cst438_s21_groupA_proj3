@@ -15,7 +15,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 public class Preferences extends AppCompatActivity {
@@ -76,6 +79,20 @@ public class Preferences extends AppCompatActivity {
                         }
                         else {
                             currentUser.setUsername(nUN.getText().toString());
+                            String userBookId = currentUser.getString("recipeBookId"); //get book id
+                            ParseQuery<ParseObject> query = ParseQuery.getQuery("recipeBook");
+                            query.getInBackground(userBookId, new GetCallback<ParseObject>() {
+                                public void done(ParseObject object, ParseException e) {
+                                    if (e == null) {
+                                        // object will be the book
+                                        object.put("recipeBookTitle",nUN.getText().toString()+"'s book");
+                                        object.saveInBackground();
+                                    } else {
+                                        // something went wrong
+                                        Toast.makeText(getApplicationContext(),"Error querying for book:" +e,Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
                             Toast.makeText(getApplicationContext(),"Username Changed!",Toast.LENGTH_SHORT).show();
                             currentUser.saveInBackground();
                         }
