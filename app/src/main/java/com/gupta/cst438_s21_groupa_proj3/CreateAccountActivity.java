@@ -19,6 +19,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 
@@ -50,8 +51,8 @@ public class CreateAccountActivity extends AppCompatActivity {
                                 //valid account creation; make the recipe book for this user
                                 ParseObject newBook = new ParseObject("recipeBook");
                                 newBook.put("recipeBookTitle",usernameText.getText().toString()+"'s book");
-                                String[] recipeIds = {"testRecipeId1","testRecipeId2","testRecipeId3"};
-                                newBook.put("recipeIDList",Arrays.asList(recipeIds));
+                                List<String> recipeIds= new ArrayList<String>();
+                                //newBook.put("recipeIDList",recipeIds);
                                 newBook.saveInBackground();
 
                                 //update the user to be associated with this book
