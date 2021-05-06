@@ -94,8 +94,6 @@ public class AdminDeleteRecipe extends AppCompatActivity {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("recipe");
         Object recipe = recipes.get(selected).get("name");
         String selectedRecipe = recipes.get(selected).getObjectId();
-        Map<String, String> params = new HashMap<>();
-        params.put("id", recipes.get(selected).getObjectId());
         query.getInBackground(selectedRecipe,(object, e) -> {
             if(e == null){
                 object.deleteInBackground(e2 ->{
