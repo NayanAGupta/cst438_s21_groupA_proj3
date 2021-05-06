@@ -59,7 +59,9 @@ public class Search extends AppCompatActivity {
         search = findViewById(R.id.searchField);
         searchButton = findViewById(R.id.searchButton);
 
+
         //scrollResult = findViewById(R.id.scrollResults);
+
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,5 +90,7 @@ public class Search extends AppCompatActivity {
                 });
             }
         });
+
+
     }
 }

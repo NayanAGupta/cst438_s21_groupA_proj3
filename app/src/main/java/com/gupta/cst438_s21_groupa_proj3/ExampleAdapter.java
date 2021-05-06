@@ -21,6 +21,8 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
             mTextView1 = itemView.findViewById(R.id.textView);
             mTextView2 = itemView.findViewById(R.id.textView2);
         }
+
+
     }
 
     public ExampleAdapter(ArrayList<ExampleItem> exampleList) {
@@ -46,4 +48,9 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
     public int getItemCount() {
         return mExampleList.size();
     }
+
+
+
+
+
 }
