@@ -60,7 +60,7 @@ public class Search extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         ArrayList<ExampleItem> exampleList = new ArrayList<>();
-        exampleList.add(new ExampleItem(R.drawable.ic_android, "Pasta El Burro", "Italian"));
+//        exampleList.add(new ExampleItem(R.drawable.ic_android, "Pasta El Burro", "Italian"));
 //        exampleList.add(new ExampleItem(R.drawable.ic_android, "Pasta El Burro", "Italian"));
 //        exampleList.add(new ExampleItem(R.drawable.ic_android, "Pasta El Burro", "Italian"));
 //        exampleList.add(new ExampleItem(R.drawable.ic_android, "Pasta El Burro", "Italian"));
@@ -97,7 +97,7 @@ public class Search extends AppCompatActivity {
                                 Log.d("book", "No matches found");
                             } else{
                                 for (ParseObject recipe : objects){
-                                    exampleList.add(new ExampleItem(R.drawable.ic_android, recipe.getString("name"), "ID: " + recipe.getObjectId()));
+                                    exampleList.add(new ExampleItem(recipe.getString("imageURL"), recipe.getString("name"), "ID: " + recipe.getObjectId()));
                                     mAdapter.notifyItemInserted(exampleList.size()-1);
                                     Log.d("book", "Found: " + recipe.getString("name") + " ID: " + recipe.getObjectId());
 
