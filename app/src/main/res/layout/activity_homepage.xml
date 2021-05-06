@@ -10,7 +10,7 @@
         layout="@layout/toolbar" />
 
     <TextView
-        android:id="@+id/welcomeTextView"
+        android:id="@+id/adminViewUserWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
@@ -26,9 +26,15 @@
         android:fillViewport="true">
 
         <TextView
-            android:id="@+id/recipeList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:id="@+id/adminList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="120dp"
+            android:fontFamily="cursive"
+            android:text=""
+            android:textSize="30sp" />
     </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

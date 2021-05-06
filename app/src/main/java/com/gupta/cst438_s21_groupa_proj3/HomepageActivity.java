@@ -9,8 +9,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,13 +17,14 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
+
+import org.json.JSONArray;
 
 public class HomepageActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     TextView welcomeTextView;
+    TextView recipeList;
 
         // Create Options Menu
     @Override
@@ -41,24 +40,25 @@ public class HomepageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_homepage);
 
         toolbar = findViewById(R.id.toolbar);
-        welcomeTextView = findViewById(R.id.welcomeTextView);
+        welcomeTextView = findViewById(R.id.adminViewUserWelcome);
+        recipeList = findViewById(R.id.adminList);
 
         setSupportActionBar(toolbar);
 
         String welcomeMessage = "Welcome, "+ ParseUser.getCurrentUser().getUsername() + "!\n";
         welcomeMessage += "Here is your recipe for today!";
-        welcomeTextView.setText(welcomeMessage);
+        recipeList.setText(welcomeMessage);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("recipe");
-        query.whereEqualTo("objectId", "nAD0ebDIcU");
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject recipe, ParseException e) {
-                if(e == null){
+        //query.whereEqualTo("objectId", "nAD0ebDIcU");
+        query.findInBackground((recipes, e) -> {
+            if(e == null){
+                for(ParseObject recipe1: recipes){
                     String list = "";
-                    String recipeName = recipe.getString("name");
-                    list += "\n" + "Recipe Name: " + recipeName;
-                    welcomeTextView.append(list);
+                    String recipeName = recipe1.getString("name");
+                    JSONArray ingredients = recipe1.getJSONArray("ingredientIDList");
+                    list += "\n" + "Recipe Name: " + recipeName + "\n" + "Ingredients: " + ingredients;
+                    recipeList.append(list);
                 }
             }
         });

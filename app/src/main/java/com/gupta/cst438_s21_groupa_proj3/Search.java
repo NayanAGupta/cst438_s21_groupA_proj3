@@ -59,13 +59,17 @@ public class Search extends AppCompatActivity {
         search = findViewById(R.id.searchField);
         searchButton = findViewById(R.id.searchButton);
 
-      // scrollResult = findViewById(R.id.scrollResults);
+
+        //scrollResult = findViewById(R.id.scrollResults);
+
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                exampleList.clear();
+                mAdapter.notifyDataSetChanged();
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("recipe");
-              // query.whereFullText("name", search.getText().toString());
+                query.whereFullText("name", search.getQuery().toString());
                 query.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> objects, ParseException e) {
@@ -74,7 +78,9 @@ public class Search extends AppCompatActivity {
                                 Log.d("book", "No matches found");
                             } else{
                                 for (ParseObject recipe : objects){
-                                    Log.d("book", "Found using fulltext2: " + recipe.getString("name") + " ID: " + recipe.getObjectId());
+                                    exampleList.add(new ExampleItem(R.drawable.ic_android, recipe.getString("name"), "ID: " + recipe.getObjectId()));
+                                    mAdapter.notifyItemInserted(exampleList.size()-1);
+                                    Log.d("book", "Found: " + recipe.getString("name") + " ID: " + recipe.getObjectId());
                                 }
                             }
                         } else {
