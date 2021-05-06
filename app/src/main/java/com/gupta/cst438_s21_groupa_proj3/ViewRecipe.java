@@ -11,17 +11,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.ParseUser;
+import com.squareup.picasso.Picasso;
 
 public class ViewRecipe extends AppCompatActivity {
     Toolbar toolbar;
     Button favButton;
     TextView recipeIngredients;
     TextView recipeDirections;
-    TextView recipeURL;
+    ImageView recipeImage;
 
     // Create Options Menu
     @Override
@@ -38,9 +40,9 @@ public class ViewRecipe extends AppCompatActivity {
 
         recipeIngredients = findViewById(R.id.viewRecipeIngredients);
         recipeDirections = findViewById(R.id.viewRecipeDescription);
-        recipeURL = findViewById(R.id.viewRecipeImageURL);
+        recipeImage = findViewById(R.id.viewRecipeImage);
 
-        String name = "BLT";
+        String name = "BLAT";
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -51,16 +53,19 @@ public class ViewRecipe extends AppCompatActivity {
         // test
 
 //        recipeName.setText(name);
-        String ingredients = "Mayo, Bacon, Lettuce, Tomato, Bread";
+        String ingredients = "Mayo, Bacon, Lettuce, Avocado, Tomato, Bread";
         ingredients = ingredients.replace(", ","\n");
         recipeIngredients.setText(ingredients);
 
-        String directions = "Spread Mayo on bread. Layer the tomatoes, bacon, and lettuce between on bottom slice. Top with second slice of bread.";
-        directions = directions.replace(". ", ".\n");
+        String directions = "Cook bacon. Slice tomato. Cut avocado. " +
+                "Spread Mayo on bread. Layer the tomatoes, bacon, and lettuce on bottom slice of bread. " +
+                "Spread avocado on top slice. Top with second slice of bread. Plate and enjoy.";
+        directions  = "- " + directions;
+        directions = directions.replace(". ", ".\n- ");
         recipeDirections.setText(directions);
 
         String url = "https://static01.nyt.com/images/2020/08/18/dining/27Diaryrex4/27Diaryrex4-articleLarge.jpg";
-        recipeURL.setText(url);
+        Picasso.get().load(url).resize(200, 200).centerCrop().into(recipeImage);
 
     }
 

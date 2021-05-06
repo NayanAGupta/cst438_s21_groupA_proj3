@@ -43,6 +43,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     implementation 'com.parse:parse-android:1.17.3'
+    implementation 'com.squareup.picasso:picasso:2.8'
 }
 repositories {
     mavenCentral()
