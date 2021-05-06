@@ -39,14 +39,14 @@ public class Search extends AppCompatActivity {
 
         ArrayList<ExampleItem> exampleList = new ArrayList<>();
         exampleList.add(new ExampleItem(R.drawable.ic_android, "Pasta El Burro", "Italian"));
-        exampleList.add(new ExampleItem(R.drawable.ic_android, "Pasta El Burro", "Italian"));
-        exampleList.add(new ExampleItem(R.drawable.ic_android, "Pasta El Burro", "Italian"));
-        exampleList.add(new ExampleItem(R.drawable.ic_android, "Pasta El Burro", "Italian"));
-        exampleList.add(new ExampleItem(R.drawable.ic_android, "Pasta El Burro", "Italian"));
-        exampleList.add(new ExampleItem(R.drawable.ic_android, "Pasta El Burro", "Italian"));
-        exampleList.add(new ExampleItem(R.drawable.ic_android, "Pasta El Burro", "Italian"));
-        exampleList.add(new ExampleItem(R.drawable.ic_android, "Pasta El Burro", "Italian"));
-        exampleList.add(new ExampleItem(R.drawable.ic_android, "Pasta El Burro", "Italian"));
+//        exampleList.add(new ExampleItem(R.drawable.ic_android, "Pasta El Burro", "Italian"));
+//        exampleList.add(new ExampleItem(R.drawable.ic_android, "Pasta El Burro", "Italian"));
+//        exampleList.add(new ExampleItem(R.drawable.ic_android, "Pasta El Burro", "Italian"));
+//        exampleList.add(new ExampleItem(R.drawable.ic_android, "Pasta El Burro", "Italian"));
+//        exampleList.add(new ExampleItem(R.drawable.ic_android, "Pasta El Burro", "Italian"));
+//        exampleList.add(new ExampleItem(R.drawable.ic_android, "Pasta El Burro", "Italian"));
+//        exampleList.add(new ExampleItem(R.drawable.ic_android, "Pasta El Burro", "Italian"));
+//        exampleList.add(new ExampleItem(R.drawable.ic_android, "Pasta El Burro", "Italian"));
 
 
         mRecyclerView = findViewById(R.id.recyclerView);
@@ -59,13 +59,13 @@ public class Search extends AppCompatActivity {
         search = findViewById(R.id.searchField);
         searchButton = findViewById(R.id.searchButton);
 
-        scrollResult = findViewById(R.id.scrollResults);
+      // scrollResult = findViewById(R.id.scrollResults);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("recipe");
-                query.whereFullText("name", search.getText().toString());
+              // query.whereFullText("name", search.getText().toString());
                 query.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> objects, ParseException e) {
@@ -84,5 +84,7 @@ public class Search extends AppCompatActivity {
                 });
             }
         });
+
+
     }
 }

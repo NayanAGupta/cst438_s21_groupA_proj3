@@ -5,10 +5,12 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="4dp">
     <RelativeLayout
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="4dp">
         <ImageView
+            android:clickable="true"
             android:id="@+id/imageView"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -33,6 +35,7 @@
             android:layout_toEndOf="@+id/imageView"
             android:text="Line 2"
             android:textSize="15sp" />
+
     </RelativeLayout>
 
 
