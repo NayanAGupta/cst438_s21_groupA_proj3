@@ -21,8 +21,7 @@ import com.squareup.picasso.Picasso;
 public class ViewRecipe extends AppCompatActivity {
     Toolbar toolbar;
     Button favButton;
-    TextView recipeIngredients;
-    TextView recipeDirections;
+    TextView recipeInstructions;
     ImageView recipeImage;
 
     // Create Options Menu
@@ -38,9 +37,8 @@ public class ViewRecipe extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recipe);
 
-        recipeIngredients = findViewById(R.id.viewRecipeIngredients);
-        recipeDirections = findViewById(R.id.viewRecipeDescription);
         recipeImage = findViewById(R.id.viewRecipeImage);
+        recipeInstructions = findViewById(R.id.viewRecipeInstructions);
 
         String name = "BLAT";
 
@@ -55,17 +53,18 @@ public class ViewRecipe extends AppCompatActivity {
 //        recipeName.setText(name);
         String ingredients = "Mayo, Bacon, Lettuce, Avocado, Tomato, Bread";
         ingredients = ingredients.replace(", ","\n");
-        recipeIngredients.setText(ingredients);
 
         String directions = "Cook bacon. Slice tomato. Cut avocado. " +
                 "Spread Mayo on bread. Layer the tomatoes, bacon, and lettuce on bottom slice of bread. " +
                 "Spread avocado on top slice. Top with second slice of bread. Plate and enjoy.";
         directions  = "- " + directions;
         directions = directions.replace(". ", ".\n- ");
-        recipeDirections.setText(directions);
+        directions = directions.replace("! ", "!\n- ");
+        recipeInstructions.setText("INGREDIENTS\n" + ingredients + "\n\nINSTRUCTIONS\n" + directions);
+
 
         String url = "https://static01.nyt.com/images/2020/08/18/dining/27Diaryrex4/27Diaryrex4-articleLarge.jpg";
-        Picasso.get().load(url).resize(200, 200).centerCrop().into(recipeImage);
+        Picasso.get().load(url).resize(300, 300).centerCrop().into(recipeImage);
 
     }
 
