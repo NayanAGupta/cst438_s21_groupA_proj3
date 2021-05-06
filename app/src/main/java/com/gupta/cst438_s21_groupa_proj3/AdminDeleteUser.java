@@ -17,8 +17,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.FunctionCallback;
@@ -38,6 +40,7 @@ public class AdminDeleteUser extends AppCompatActivity {
     Spinner spinner;
     ArrayList<String> username;
     Button deleteButton;
+    List<ParseUser> users = new ArrayList<>();
 
     // Create Options Menu
     @Override
@@ -68,6 +71,7 @@ public class AdminDeleteUser extends AppCompatActivity {
                     }
                     String user = user1.getString("username");
                     username.add(user);
+                    this.users.addAll(users);
                 }
             }
             spinner.setAdapter(new ArrayAdapter<String>(AdminDeleteUser.this, android.R.layout.simple_spinner_dropdown_item, username));
@@ -77,14 +81,12 @@ public class AdminDeleteUser extends AppCompatActivity {
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String user = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
-                HashMap<String, String> params = new HashMap<String, String>();
+            public void onItemSelected(AdapterView<?> adapterView, View view, int selected, long l) {
                 deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         //DELETE USER and their recipebook
-                        Log.d("book","username: " + user);
+                        deleteUser(selected);
 
                         //not nessecary, do this feature later
 //                        //query for user using username
@@ -113,7 +115,6 @@ public class AdminDeleteUser extends AppCompatActivity {
 //                                }
 //                            }
 //                        });
-
                     }
                 });
             }
@@ -124,6 +125,26 @@ public class AdminDeleteUser extends AppCompatActivity {
             }
         });
     }
+
+    private void deleteUser(int selected) {
+        String selectedUsername = users.get(selected).getUsername();
+        Map<String, String> params = new HashMap<>();
+        params.put("id", users.get(selected).getObjectId());
+        ParseCloud.callFunctionInBackground("adminDeleteUser", params, new FunctionCallback<ParseUser>() {
+            @Override
+            public void done(ParseUser object, ParseException e) {
+                if (e == null) {
+                    users.remove(selected);
+                    Toast.makeText(AdminDeleteUser.this, "Deleted user: "+ selectedUsername, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(AdminDeleteUser.this, "Error deleting user: "+ selectedUsername, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+        });
+    }
+
     //  Options menu control switch
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
