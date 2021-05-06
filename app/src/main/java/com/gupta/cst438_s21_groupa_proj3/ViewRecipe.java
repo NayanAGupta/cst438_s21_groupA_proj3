@@ -15,15 +15,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ViewRecipe extends AppCompatActivity {
     Toolbar toolbar;
     Button favButton;
     TextView recipeInstructions;
     ImageView recipeImage;
-
+    String name;
+    String ingredients;
+    String directions;
+    String url;
+    List<String> ingredientList = new ArrayList<>();
     // Create Options Menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -40,7 +51,32 @@ public class ViewRecipe extends AppCompatActivity {
         recipeImage = findViewById(R.id.viewRecipeImage);
         recipeInstructions = findViewById(R.id.viewRecipeInstructions);
 
-        String name = "BLAT";
+
+        String givenObjectId = "Z2KJhCxOvm"; //placeholder for now, should be passed through intent
+
+        //query for recipe given recipe Id
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("recipe");
+        query.getInBackground(givenObjectId, new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                if (e == null) {
+
+                    name = object.getString("name"); //get recipe name
+                    directions = object.getString("description"); //get recipe desc/instruction
+                    url = object.getString("imageURL");  //get img url
+
+                    ingredientList = object.getList("ingredientIDList"); //get list of ingredients
+                    for(String singleIngredient :ingredientList){
+                        //convert list to single string
+                        ingredients += singleIngredient + "\n";
+                    }
+                } else {
+                    name = "error";
+                    directions = "error"+e.getMessage();
+                }
+            }
+        });
+
+        //String name = "BLAT";
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -51,19 +87,17 @@ public class ViewRecipe extends AppCompatActivity {
         // test
 
 //        recipeName.setText(name);
-        String ingredients = "Mayo, Bacon, Lettuce, Avocado, Tomato, Bread";
+        //String ingredients = "Mayo, Bacon, Lettuce, Avocado, Tomato, Bread";
         ingredients = ingredients.replace(", ","\n");
 
-        String directions = "Cook bacon. Slice tomato. Cut avocado. " +
-                "Spread Mayo on bread. Layer the tomatoes, bacon, and lettuce on bottom slice of bread. " +
-                "Spread avocado on top slice. Top with second slice of bread. Plate and enjoy.";
+        //String directions = "Cook bacon. Slice tomato. Cut avocado. " + "Spread Mayo on bread. Layer the tomatoes, bacon, and lettuce on bottom slice of bread. " + "Spread avocado on top slice. Top with second slice of bread. Plate and enjoy.";
         directions  = "- " + directions;
         directions = directions.replace(". ", ".\n- ");
         directions = directions.replace("! ", "!\n- ");
         recipeInstructions.setText("INGREDIENTS\n" + ingredients + "\n\nINSTRUCTIONS\n" + directions);
 
 
-        String url = "https://static01.nyt.com/images/2020/08/18/dining/27Diaryrex4/27Diaryrex4-articleLarge.jpg";
+        //String url = "https://static01.nyt.com/images/2020/08/18/dining/27Diaryrex4/27Diaryrex4-articleLarge.jpg";
         Picasso.get().load(url).resize(300, 300).centerCrop().into(recipeImage);
 
     }
