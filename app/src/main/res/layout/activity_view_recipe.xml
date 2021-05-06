@@ -35,7 +35,6 @@
             android:id="@+id/viewRecipeIngredients"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/ingredients"
             />
 
     </androidx.core.widget.NestedScrollView>
@@ -54,7 +53,6 @@
             android:id="@+id/viewRecipeDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/directions"
             android:layout_below="@id/directionScroller"
             />
     </androidx.core.widget.NestedScrollView>
