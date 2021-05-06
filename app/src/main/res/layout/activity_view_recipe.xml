@@ -12,48 +12,56 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/viewRecipeName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
-        android:layout_marginHorizontal="70dp"
-        android:layout_marginTop="20dp"
-        android:hint="@string/recipe_name" />
+<!--    <TextView-->
+<!--        android:id="@+id/viewRecipeName"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/toolbar"-->
+<!--        android:layout_marginHorizontal="70dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:hint="@string/recipe_name" />-->
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/scroller"
-        android:layout_below="@id/viewRecipeName"        android:layout_width="match_parent"
+        android:id="@+id/ingredientScroller"
+        android:layout_below="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:fillViewport="true"
+        android:visibility="visible"
+        android:layout_marginHorizontal="70dp"
+        android:layout_marginTop="50dp" >
+        <TextView
+            android:id="@+id/viewRecipeIngredients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/ingredients"
+            />
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/directionScroller"
+        android:layout_below="@id/ingredientScroller"
+        android:layout_width="match_parent"
         android:layout_height="150dp"
         android:fillViewport="true"
         android:visibility="visible"
         android:layout_marginHorizontal="70dp"
         android:layout_marginTop="20dp" >
         <TextView
-            android:id="@+id/viewRecipeIngredients"
+            android:id="@+id/viewRecipeDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/ingredients"
-            android:layout_below="@id/viewRecipeName"
+            android:hint="@string/directions"
+            android:layout_below="@id/directionScroller"
             />
-
     </androidx.core.widget.NestedScrollView>
-
-    <TextView
-        android:id="@+id/viewRecipeDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:hint="@string/directions"
-        android:layout_below="@id/scroller"
-        android:layout_marginHorizontal="70dp"
-        android:layout_marginTop="20dp" />
-
     <TextView
         android:id="@+id/viewRecipeImageURL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/image_url"
-        android:layout_below="@id/viewRecipeDescription"
+        android:layout_below="@id/directionScroller"
         android:layout_marginHorizontal="70dp"
         android:layout_marginTop="20dp"  />
 
@@ -63,19 +71,8 @@
         android:layout_height="wrap_content"
         android:text="@string/add_to_favorites"
         android:layout_below="@id/viewRecipeImageURL"
+        android:layout_centerHorizontal="true"
         android:layout_marginHorizontal="70dp"
-        android:layout_marginTop="20dp" />
-
-    <Button
-        android:id="@+id/VRreturnButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/back"
-        android:layout_below="@id/VRFavorite"
-        android:layout_marginHorizontal="70dp"
-        android:layout_marginTop="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="100dp"/>
-
+        android:layout_marginTop="50dp" />
 
 </RelativeLayout>

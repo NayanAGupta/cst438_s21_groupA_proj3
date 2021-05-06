@@ -19,8 +19,6 @@ import com.parse.ParseUser;
 public class ViewRecipe extends AppCompatActivity {
     Toolbar toolbar;
     Button favButton;
-    Button returnButton;
-    TextView recipeName;
     TextView recipeIngredients;
     TextView recipeDirections;
     TextView recipeURL;
@@ -38,9 +36,6 @@ public class ViewRecipe extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recipe);
 
-        favButton = findViewById(R.id.VRFavorite);
-        returnButton = findViewById(R.id.VRreturnButton);
-        recipeName = findViewById(R.id.viewRecipeName);
         recipeIngredients = findViewById(R.id.viewRecipeIngredients);
         recipeDirections = findViewById(R.id.viewRecipeDescription);
         recipeURL = findViewById(R.id.viewRecipeImageURL);
@@ -55,21 +50,18 @@ public class ViewRecipe extends AppCompatActivity {
 
         // test
 
-        recipeName.setText(name);
+//        recipeName.setText(name);
         String ingredients = "Mayo, Bacon, Lettuce, Tomato, Bread";
+        ingredients = ingredients.replace(", ","\n");
         recipeIngredients.setText(ingredients);
-        String directions = "Spread Mayo on bread. Layer the tomatoes, bacon, and lettuce between two slices of bread.";
+
+        String directions = "Spread Mayo on bread. Layer the tomatoes, bacon, and lettuce between on bottom slice. Top with second slice of bread.";
+        directions = directions.replace(". ", ".\n");
         recipeDirections.setText(directions);
+
         String url = "https://static01.nyt.com/images/2020/08/18/dining/27Diaryrex4/27Diaryrex4-articleLarge.jpg";
         recipeURL.setText(url);
 
-        returnButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent myIntent = new Intent(ViewRecipe.this, Search.class);
-                ViewRecipe.this.startActivity(myIntent);
-            }
-        });
     }
 
     // Back Button

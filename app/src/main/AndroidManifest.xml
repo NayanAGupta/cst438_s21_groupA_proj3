@@ -15,17 +15,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AdminDeleteRecipe"></activity>
-        <activity android:name=".AdminViewRecipes"></activity>
-        <activity android:name=".AdminDeleteUser"></activity>
-        <activity android:name=".AdminViewUsers"></activity>
-        <activity android:name=".AdminHomepageActivity"></activity>
+        <activity android:name=".AdminDeleteRecipe" />
+        <activity android:name=".AdminViewRecipes" />
+        <activity android:name=".AdminDeleteUser" />
+        <activity android:name=".AdminViewUsers" />
+        <activity android:name=".AdminHomepageActivity" />
         <activity android:name=".ViewRecipe">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            </activity>
+        </activity>
         <activity android:name=".Search" />
         <activity android:name=".Preferences" />
         <activity android:name=".Submit" />
