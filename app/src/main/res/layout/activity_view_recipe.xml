@@ -1,85 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ViewRecipe">
 
-    <TextView
-        android:id="@+id/viewRecipeName"
-        android:layout_width="268dp"
-        android:layout_height="109dp"
-        android:hint="Recipe Name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.118" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/viewRecipeList"
-        android:layout_width="266dp"
-        android:layout_height="89dp"
-        android:hint="Ingredients"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.338" />
+        android:id="@+id/viewRecipeName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_marginHorizontal="70dp"
+        android:layout_marginTop="20dp"
+        android:hint="@string/recipe_name" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroller"
+        android:layout_below="@id/viewRecipeName"        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:fillViewport="true"
+        android:visibility="visible"
+        android:layout_marginHorizontal="70dp"
+        android:layout_marginTop="20dp" >
+        <TextView
+            android:id="@+id/viewRecipeIngredients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/ingredients"
+            android:layout_below="@id/viewRecipeName"
+            />
+
+    </androidx.core.widget.NestedScrollView>
 
     <TextView
         android:id="@+id/viewRecipeDescription"
-        android:layout_width="266dp"
-        android:layout_height="89dp"
-        android:hint="Directions"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.528" />
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:hint="@string/directions"
+        android:layout_below="@id/scroller"
+        android:layout_marginHorizontal="70dp"
+        android:layout_marginTop="20dp" />
 
     <TextView
         android:id="@+id/viewRecipeImageURL"
-        android:layout_width="263dp"
-        android:layout_height="45dp"
-        android:text="Image URL"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.644" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/image_url"
+        android:layout_below="@id/viewRecipeDescription"
+        android:layout_marginHorizontal="70dp"
+        android:layout_marginTop="20dp"  />
 
     <Button
         android:id="@+id/VRFavorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="165dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="158dp"
-        android:layout_marginBottom="166dp"
-        android:text="Add to Favorites"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewRecipeImageURL" />
+        android:text="@string/add_to_favorites"
+        android:layout_below="@id/viewRecipeImageURL"
+        android:layout_marginHorizontal="70dp"
+        android:layout_marginTop="20dp" />
 
     <Button
         android:id="@+id/VRreturnButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="21dp"
-        android:layout_marginEnd="163dp"
-        android:layout_marginBottom="97dp"
-        android:text="Back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Favorite" />
+        android:text="@string/back"
+        android:layout_below="@id/VRFavorite"
+        android:layout_marginHorizontal="70dp"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"/>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
