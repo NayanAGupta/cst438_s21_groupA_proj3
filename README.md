@@ -23,6 +23,14 @@
   From the 16 User Stories, we aim to complete 1 story per person per week. 
 # Wireframes: WIP
   ![](wireframes/cook1.PNG)
+  ![](wireframes/cook2.PNG)
+  ![](wireframes/cook3.PNG)
+  ![](wireframes/cook4.PNG)
+  ![](wireframes/cook5.PNG)
+  ![](wireframes/cook6.PNG)
+  ![](wireframes/cook7.PNG)
+  ![](wireframes/cook8.PNG)
+  ![](wireframes/cook9.PNG)
 # Technologies:
   Android Studio
   
