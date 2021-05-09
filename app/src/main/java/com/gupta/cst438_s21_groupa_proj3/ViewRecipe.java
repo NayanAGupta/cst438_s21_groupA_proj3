@@ -100,6 +100,33 @@ public class ViewRecipe extends AppCompatActivity {
         //String url = "https://static01.nyt.com/images/2020/08/18/dining/27Diaryrex4/27Diaryrex4-articleLarge.jpg";
         Picasso.get().load(url).resize(300, 300).centerCrop().into(recipeImage);
 
+        favButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //get current user
+                ParseUser currUser = ParseUser.getCurrentUser();
+                //get current user's book
+                String currUserBookId = currUser.getString("recipeBookId");
+                //query for recipe book
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("recipeBook");
+                query.getInBackground(currUserBookId, new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject object, ParseException e) {
+                        if (e == null){
+                            //found book
+                            //add recipe id to book and upload to database
+                            //Log.d("book", "Recent recipe id: "+recentRecipeId);
+                            object.add("recipeIDList", givenObjectId);
+                            object.saveInBackground();
+
+                            Toast.makeText(getApplicationContext(),"Added recipe to your book",Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(),"Error querying for recipe book: "+e.getMessage(),Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+            }
+        });
     }
 
     // Back Button
