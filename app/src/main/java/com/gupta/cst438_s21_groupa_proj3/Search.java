@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,7 +25,8 @@ import java.util.List;
 public class Search extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+   // private ExampleAdapter mAdapter;
+    private ExampleAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
 
@@ -55,6 +57,8 @@ public class Search extends AppCompatActivity {
         mAdapter = new ExampleAdapter(exampleList);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+
+
 
         search = findViewById(R.id.searchField);
         searchButton = findViewById(R.id.searchButton);
@@ -88,6 +92,16 @@ public class Search extends AppCompatActivity {
                         }
                     }
                 });
+            }
+        });
+
+        mAdapter.setOnItemClickerListener(new ExampleAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                //mExampleList.get(position);
+
+                Intent preferences = new Intent(getApplicationContext(), ViewRecipe.class);
+                startActivity(preferences);
             }
         });
 
