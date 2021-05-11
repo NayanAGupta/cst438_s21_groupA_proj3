@@ -33,7 +33,8 @@ import java.util.List;
 public class Search extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+   // private ExampleAdapter mAdapter;
+    private ExampleAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     Toolbar toolbar;
@@ -78,6 +79,8 @@ public class Search extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
+
+
         search = findViewById(R.id.searchField);
         searchButton = findViewById(R.id.searchButton);
 
@@ -108,6 +111,16 @@ public class Search extends AppCompatActivity {
                         }
                     }
                 });
+            }
+        });
+
+        mAdapter.setOnItemClickerListener(new ExampleAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                //mExampleList.get(position);
+
+                Intent preferences = new Intent(getApplicationContext(), ViewRecipe.class);
+                startActivity(preferences);
             }
         });
 
