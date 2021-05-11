@@ -139,7 +139,6 @@ public class AdminDeleteUser extends AppCompatActivity {
                 }
                 else{
                     Toast.makeText(AdminDeleteUser.this, "Error deleting user: "+ selectedUsername, Toast.LENGTH_SHORT).show();
-                    return;
                 }
             }
         });

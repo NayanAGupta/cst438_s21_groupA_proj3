@@ -23,6 +23,9 @@ import com.parse.ParseUser;
 import org.json.JSONArray;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AdminDeleteRecipe extends AppCompatActivity {
 
@@ -30,6 +33,7 @@ public class AdminDeleteRecipe extends AppCompatActivity {
     Spinner spinner;
     ArrayList<String> recipeList;
     Button deleteButton;
+    List<ParseObject> recipes = new ArrayList<>();
 
     // Create Options Menu
     @Override
@@ -57,6 +61,7 @@ public class AdminDeleteRecipe extends AppCompatActivity {
                 for(ParseObject recipe1: recipes){
                     String recipeName = recipe1.getString("name");
                     recipeList.add(recipeName);
+                    this.recipes.addAll(recipes);
 
                 }
             }
@@ -67,11 +72,12 @@ public class AdminDeleteRecipe extends AppCompatActivity {
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String recipe = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
+            public void onItemSelected(AdapterView<?> adapterView, View view, int selected, long l) {
+                //String selectedRecipe = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
                 deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        deleteRecipe(selected);
 
                     }
                 });
@@ -82,6 +88,27 @@ public class AdminDeleteRecipe extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void deleteRecipe(int selected){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("recipe");
+        Object recipe = recipes.get(selected).get("name");
+        String selectedRecipe = recipes.get(selected).getObjectId();
+        query.getInBackground(selectedRecipe,(object, e) -> {
+            if(e == null){
+                object.deleteInBackground(e2 ->{
+                   if(e2 == null){
+                       Toast.makeText(AdminDeleteRecipe.this, "Deleted recipe: "+ recipe, Toast.LENGTH_SHORT).show();
+
+                   }
+                   else{
+                       Toast.makeText(AdminDeleteRecipe.this, "Error deleting: "+ recipe, Toast.LENGTH_SHORT).show();
+
+                   }
+                });
+            }
+        });
+
     }
     //  Options menu control switch
     @Override

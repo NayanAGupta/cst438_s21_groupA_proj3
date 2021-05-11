@@ -21,8 +21,16 @@
   At minimum, the application should allow users to create accounts and save from a list of predefined recipes. 
 # Timeline: 
   From the 16 User Stories, we aim to complete 1 story per person per week. 
-# Mockups: WIP
-  Mockup
+# Wireframes: WIP
+  ![](wireframes/cook1.PNG)
+  ![](wireframes/cook2.PNG)
+  ![](wireframes/cook3.PNG)
+  ![](wireframes/cook4.PNG)
+  ![](wireframes/cook5.PNG)
+  ![](wireframes/cook6.PNG)
+  ![](wireframes/cook7.PNG)
+  ![](wireframes/cook8.PNG)
+  ![](wireframes/cook9.PNG)
 # Technologies:
   Android Studio
   
