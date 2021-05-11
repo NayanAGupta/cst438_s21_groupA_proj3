@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.util.Random;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -46,20 +47,24 @@ public class HomepageActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         String welcomeMessage = "Welcome, "+ ParseUser.getCurrentUser().getUsername() + "!\n";
-        welcomeMessage += "Here is your recipe for today!";
-        recipeList.setText(welcomeMessage);
+        welcomeMessage += "Here is a neat recipe!";
+        welcomeTextView.setText(welcomeMessage);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("recipe");
         //query.whereEqualTo("objectId", "nAD0ebDIcU");
+
         query.findInBackground((recipes, e) -> {
             if(e == null){
-                for(ParseObject recipe1: recipes){
-                    String list = "";
-                    String recipeName = recipe1.getString("name");
-                    JSONArray ingredients = recipe1.getJSONArray("ingredientIDList");
-                    list += "\n" + "Recipe Name: " + recipeName + "\n" + "Ingredients: " + ingredients;
-                    recipeList.append(list);
-                }
+
+                Random rand = new Random();
+                int size = recipes.size();
+                int i = rand.nextInt(size);
+
+                String list = "";
+                String recipeName = recipes.get(i).getString("name");
+                JSONArray ingredients = recipes.get(i).getJSONArray("ingredientIDList");
+                list += "\n" + "Recipe Name: " + recipeName + "\n" + "Ingredients: " + ingredients;
+                recipeList.append(list);
             }
         });
     }
