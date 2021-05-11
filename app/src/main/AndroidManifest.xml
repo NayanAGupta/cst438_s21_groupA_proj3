@@ -18,6 +18,7 @@
         <activity android:name=".AdminDeleteRecipe"></activity>
         <activity android:name=".AdminViewRecipes"></activity>
         <activity android:name=".AdminDeleteUser"></activity>
+        <activity android:name=".ViewRecipe"></activity>
         <activity android:name=".AdminViewUsers"></activity>
         <activity android:name=".AdminHomepageActivity"></activity>
         <activity android:name=".Search" />

@@ -2,9 +2,11 @@ package com.gupta.cst438_s21_groupa_proj3;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
@@ -24,11 +26,13 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
         public ImageView mImageView;
         public TextView mTextView1;
         public TextView mTextView2;
+        public Button mButton;
         public ExampleViewHolder(View itemView, OnItemClickListener listener) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.imageView);
             mTextView1 = itemView.findViewById(R.id.textView);
             mTextView2 = itemView.findViewById(R.id.textView2);
+            mButton = itemView.findViewById(R.id.viewButton);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -39,6 +43,15 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
                             listener.onItemClick(position);
                         }
                     }
+                }
+            });
+
+            mButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(), ViewRecipe.class);
+                    view.getContext().startActivity(intent);
+
                 }
             });
         }
