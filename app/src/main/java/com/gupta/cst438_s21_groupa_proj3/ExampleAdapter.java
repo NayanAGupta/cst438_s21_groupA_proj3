@@ -3,6 +3,7 @@ package com.gupta.cst438_s21_groupa_proj3;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,10 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(view.getContext(), ViewRecipe.class);
+                    String id = (String)mTextView2.getText();
+                    id = id.substring(4);
+                    Log.d("book", id);
+                    intent.putExtra("givenObjectId", id);
                     view.getContext().startActivity(intent);
 
                 }

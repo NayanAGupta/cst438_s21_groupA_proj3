@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -50,10 +51,16 @@ public class ViewRecipe extends AppCompatActivity {
 
         recipeImage = findViewById(R.id.viewRecipeImage);
         recipeInstructions = findViewById(R.id.viewRecipeInstructions);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
-        String givenObjectId = "Z2KJhCxOvm"; //placeholder for now, should be passed through intent
-
+        //String givenObjectId = "Z2KJhCxOvm"; //placeholder for now, should be passed through intent
+        Bundle extras = getIntent().getExtras();
+        String givenObjectId = extras.getString("givenObjectId");
         //query for recipe given recipe Id
         ParseQuery<ParseObject> query = ParseQuery.getQuery("recipe");
         query.getInBackground(givenObjectId, new GetCallback<ParseObject>() {
@@ -65,41 +72,28 @@ public class ViewRecipe extends AppCompatActivity {
                     url = object.getString("imageURL");  //get img url
 
                     ingredientList = object.getList("ingredientIDList"); //get list of ingredients
+                    ingredients = "";
                     for(String singleIngredient :ingredientList){
                         //convert list to single string
-                        ingredients += singleIngredient + "\n";
+
+                        ingredients += singleIngredient;
+
+                        Log.d("Book", ingredients);
                     }
                 } else {
                     name = "error";
-                    directions = "error"+e.getMessage();
+                    directions = "error "+e.getMessage();
                 }
+                getSupportActionBar().setTitle(name);
+                ingredients = ingredients.replace(", ","\n");
+                directions  = "- " + directions;
+                directions = directions.replace(". ", ".\n- ");
+                directions = directions.replace("! ", "!\n- ");
+                recipeInstructions.setText("INGREDIENTS\n" + ingredients + "\n\nINSTRUCTIONS\n" + directions);
+
+                Picasso.get().load(url).resize(300, 300).centerCrop().into(recipeImage);
             }
         });
-
-        //String name = "BLAT";
-
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(name);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        // test
-
-//        recipeName.setText(name);
-        //String ingredients = "Mayo, Bacon, Lettuce, Avocado, Tomato, Bread";
-        ingredients = ingredients.replace(", ","\n");
-
-        //String directions = "Cook bacon. Slice tomato. Cut avocado. " + "Spread Mayo on bread. Layer the tomatoes, bacon, and lettuce on bottom slice of bread. " + "Spread avocado on top slice. Top with second slice of bread. Plate and enjoy.";
-        directions  = "- " + directions;
-        directions = directions.replace(". ", ".\n- ");
-        directions = directions.replace("! ", "!\n- ");
-        recipeInstructions.setText("INGREDIENTS\n" + ingredients + "\n\nINSTRUCTIONS\n" + directions);
-
-
-        //String url = "https://static01.nyt.com/images/2020/08/18/dining/27Diaryrex4/27Diaryrex4-articleLarge.jpg";
-        Picasso.get().load(url).resize(300, 300).centerCrop().into(recipeImage);
-
     }
 
     // Back Button
