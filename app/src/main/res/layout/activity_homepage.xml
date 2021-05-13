@@ -14,27 +14,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
-        android:layout_marginLeft="25dp"
+        android:layout_marginHorizontal="25dp"
         android:layout_marginTop="25dp"
         android:fontFamily="cursive"
         android:text=""
         android:textSize="30sp" />
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/adminList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/toolbar"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="120dp"
-            android:fontFamily="cursive"
-            android:text=""
-            android:textSize="30sp" />
-    </androidx.core.widget.NestedScrollView>
+    <TextView
+        android:id="@+id/adminList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="120dp"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:fontFamily="casual"
+        android:text=""
+        android:textSize="30sp" />
+
+    <ImageView
+        android:id="@+id/viewRecipeImage"
+        android:layout_width="300dp"
+        android:layout_height = "300dp"
+        android:text="@string/image"
+        android:layout_below="@id/adminList"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"  />
+
 
 </RelativeLayout>
