@@ -54,8 +54,7 @@ public class AdminViewRecipes extends AppCompatActivity {
                 for(ParseObject recipe1: recipes){
                     String list = "";
                     String recipeName = recipe1.getString("name");
-                    JSONArray ingredients = recipe1.getJSONArray("ingredientIDList");
-                    list += "\n" + "Recipe Name: " + recipeName + "\n" + "Ingredients: " + ingredients;
+                    list += "Recipe Name: " + recipeName + "\n";
                     adminList.append(list);
                 }
             }
@@ -93,8 +92,8 @@ public class AdminViewRecipes extends AppCompatActivity {
                 return true;
             //  Takes user to Submit Form
             case R.id.approve:
-//                Intent submit = new Intent(getApplicationContext(), Submit.class);
-//                startActivity(submit);
+                Intent approve = new Intent(getApplicationContext(), AdminApprove.class);
+                startActivity(approve);
                 return true;
             //  Takes user to Preferences page
             //  Logs user out
