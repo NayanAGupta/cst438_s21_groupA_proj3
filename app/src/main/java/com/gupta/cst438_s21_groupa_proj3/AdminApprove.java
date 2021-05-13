@@ -54,12 +54,9 @@ public class AdminApprove extends AppCompatActivity {
         query.findInBackground((recipes, e) -> {
             if(e == null){
                 for(ParseObject recipe1: recipes){
-                    if(!recipe1.getBoolean("approved")) {
                         String recipeName = recipe1.getString("name");
                         recipeList.add(recipeName);
                         this.recipes.addAll(recipes);
-                    }
-
                 }
             }
             spinner.setAdapter(new ArrayAdapter<String>(AdminApprove.this, android.R.layout.simple_spinner_dropdown_item, recipeList));
@@ -88,16 +85,21 @@ public class AdminApprove extends AppCompatActivity {
 
     private void approveRecipe(int selected){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("recipe");
+        Object recipe = recipes.get(selected).get("name");
         String selectedRecipe = recipes.get(selected).getObjectId();
         query.getInBackground(selectedRecipe,(object, e) -> {
             if(e == null){
-                object.put("approved",true);
-                object.saveInBackground();
-                Toast.makeText(AdminApprove.this, "Approved recipe", Toast.LENGTH_SHORT).show();
+                if(object.getBoolean("approved")){
+                    Toast.makeText(AdminApprove.this, recipe+" already approved", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    object.put("approved", true);
+                    object.saveInBackground();
+                    Toast.makeText(AdminApprove.this, "Approved " + recipe, Toast.LENGTH_SHORT).show();
+                }
+
             }
-            else{
-                Toast.makeText(AdminApprove.this, "Couldn't approve recipe", Toast.LENGTH_SHORT).show();
-            }
+
         });
     }
 
