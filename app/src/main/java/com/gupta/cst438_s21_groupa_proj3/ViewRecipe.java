@@ -91,7 +91,7 @@ public class ViewRecipe extends AppCompatActivity {
                 directions = directions.replace("! ", "!\n- ");
                 recipeInstructions.setText("INGREDIENTS\n" + ingredients + "\n\nINSTRUCTIONS\n" + directions);
 
-                Picasso.get().load(url).resize(300, 300).centerCrop().into(recipeImage);
+                Picasso.get().load(url).resize(500, 500).centerCrop().into(recipeImage);
             }
         });
     }

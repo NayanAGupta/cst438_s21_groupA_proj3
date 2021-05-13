@@ -11,9 +11,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="250dp"
         android:layout_marginTop="120dp"
-        android:text="Delete User"
+        android:text="@string/delete_user"
         android:visibility="visible"
-        tools:visibility="visible" />
+        tools:visibility="visible"
+        android:fontFamily="monospace"
+        android:textStyle="bold"/>
 
     <include
         android:id="@+id/toolbar"
