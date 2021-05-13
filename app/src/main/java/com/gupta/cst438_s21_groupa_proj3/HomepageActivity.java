@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,14 +19,18 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
+
+import java.util.Random;
 
 public class HomepageActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     TextView welcomeTextView;
     TextView recipeList;
+    ImageView recipeImage;
 
         // Create Options Menu
     @Override
@@ -42,24 +48,31 @@ public class HomepageActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         welcomeTextView = findViewById(R.id.adminViewUserWelcome);
         recipeList = findViewById(R.id.adminList);
+        recipeImage = findViewById(R.id.viewRecipeImage);
 
         setSupportActionBar(toolbar);
 
         String welcomeMessage = "Welcome, "+ ParseUser.getCurrentUser().getUsername() + "!\n";
-        welcomeMessage += "Here is your recipe for today!";
-        recipeList.setText(welcomeMessage);
+        welcomeMessage += "Here is a new recipe for you!";
+        welcomeTextView.setText(welcomeMessage);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("recipe");
         //query.whereEqualTo("objectId", "nAD0ebDIcU");
         query.findInBackground((recipes, e) -> {
             if(e == null){
-                for(ParseObject recipe1: recipes){
-                    String list = "";
-                    String recipeName = recipe1.getString("name");
-                    JSONArray ingredients = recipe1.getJSONArray("ingredientIDList");
-                    list += "\n" + "Recipe Name: " + recipeName + "\n" + "Ingredients: " + ingredients;
-                    recipeList.append(list);
-                }
+                Random rand = new Random();
+                int size = recipes.size();
+                int i = rand.nextInt(size);
+                String url;
+                String recipeName;
+                String list = "";
+
+                url =  recipes.get(i).getString("imageURL");
+                recipeName = recipes.get(i).getString("name");
+                list += "\n" + recipeName + "\n";
+                recipeList.append(list);
+
+                Picasso.get().load(url).resize(300, 300).centerCrop().into(recipeImage);
             }
         });
     }
