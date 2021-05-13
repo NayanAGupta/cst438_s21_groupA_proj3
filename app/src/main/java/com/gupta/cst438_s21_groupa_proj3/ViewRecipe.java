@@ -36,6 +36,7 @@ public class ViewRecipe extends AppCompatActivity {
     String directions;
     String url;
     List<String> ingredientList = new ArrayList<>();
+    List<String> recipesList = new ArrayList<>();
     // Create Options Menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -92,6 +93,38 @@ public class ViewRecipe extends AppCompatActivity {
                 recipeInstructions.setText("INGREDIENTS\n" + ingredients + "\n\nINSTRUCTIONS\n" + directions);
 
                 Picasso.get().load(url).resize(300, 300).centerCrop().into(recipeImage);
+            }
+        });
+
+        favButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ParseUser currUser = ParseUser.getCurrentUser();
+                String currUserBookId = currUser.getString("recipeBookId");
+                query.getInBackground(currUserBookId, new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject object, ParseException e) {
+                        if (e == null){
+                            //found book
+                            //add recipe id to book and upload to database
+                            // check if book already has id
+                            //Log.d("book", "Recent recipe id: "+recentRecipeId);
+                            recipesList = object.getList("recipeIDList");
+                            if (!recipesList.contains(givenObjectId)) {
+                                object.add("recipeIDList", givenObjectId);
+                                object.saveInBackground();
+                                Toast.makeText(getApplicationContext(),"Added recipe to your book",Toast.LENGTH_LONG).show();
+                            }
+                            else{
+                                Toast.makeText(getApplicationContext(),"You already have this recipe to your book",Toast.LENGTH_LONG).show();
+                            }
+
+
+                        } else {
+                            Toast.makeText(getApplicationContext(),"Error querying for recipe book: "+e.getMessage(),Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
             }
         });
     }
