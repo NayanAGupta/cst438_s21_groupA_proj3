@@ -100,9 +100,11 @@ public class Search extends AppCompatActivity {
                                 Log.d("book", "No matches found");
                             } else{
                                 for (ParseObject recipe : objects){
-                                    exampleList.add(new ExampleItem(recipe.getString("imageURL"), recipe.getString("name"), "ID: " + recipe.getObjectId()));
-                                    mAdapter.notifyItemInserted(exampleList.size()-1);
-                                    Log.d("book", "Found: " + recipe.getString("name") + " ID: " + recipe.getObjectId());
+                                    if(recipe.getBoolean("approved")) {
+                                        exampleList.add(new ExampleItem(recipe.getString("imageURL"), recipe.getString("name"), "ID: " + recipe.getObjectId()));
+                                        mAdapter.notifyItemInserted(exampleList.size() - 1);
+                                        Log.d("book", "Found: " + recipe.getString("name") + " ID: " + recipe.getObjectId());
+                                    }
 
                                 }
                             }
