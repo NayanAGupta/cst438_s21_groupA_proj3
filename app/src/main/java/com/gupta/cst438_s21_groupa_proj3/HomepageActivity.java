@@ -58,6 +58,7 @@ public class HomepageActivity extends AppCompatActivity {
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("recipe");
         //query.whereEqualTo("objectId", "nAD0ebDIcU");
+        query.whereEqualTo("approved", true);
         query.findInBackground((recipes, e) -> {
             if(e == null){
                 Random rand = new Random();
@@ -69,8 +70,7 @@ public class HomepageActivity extends AppCompatActivity {
 
                 url =  recipes.get(i).getString("imageURL");
                 recipeName = recipes.get(i).getString("name");
-                list += "\n" + recipeName + "\n";
-                recipeList.append(list);
+                recipeList.append(recipeName);
 
                 Picasso.get().load(url).resize(300, 300).centerCrop().into(recipeImage);
             }
