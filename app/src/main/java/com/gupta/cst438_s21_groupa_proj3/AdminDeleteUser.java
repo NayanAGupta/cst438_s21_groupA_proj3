@@ -165,8 +165,8 @@ public class AdminDeleteUser extends AppCompatActivity {
                 return true;
             //  Takes user to Submit Form
             case R.id.approve:
-//                Intent submit = new Intent(getApplicationContext(), Submit.class);
-//                startActivity(submit);
+                Intent approve = new Intent(getApplicationContext(), AdminApprove.class);
+                startActivity(approve);
                 return true;
             //  Takes user to Preferences page
             //  Logs user out
