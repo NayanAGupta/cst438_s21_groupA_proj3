@@ -6,30 +6,31 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Spinner;
 import android.widget.Toast;
-import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
-import com.parse.FindCallback;
-import com.parse.GetCallback;
-import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import org.w3c.dom.Text;
+import java.util.ArrayList;
+import java.util.List;
 
-public class AdminViewUsers extends AppCompatActivity {
-
+public class AdminApprove extends AppCompatActivity {
     Toolbar toolbar;
-    TextView adminList;
-    TextView adminViewUserWelcome;
-    Button deleteButton;
+    Spinner spinner;
+    ArrayList<String> recipeList;
+    Button approveButton;
+    List<ParseObject> recipes = new ArrayList<>();
 
+    // Create Options Menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -40,42 +41,64 @@ public class AdminViewUsers extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_view_user);
+        setContentView(R.layout.activity_admin_approve);
 
-        adminViewUserWelcome = findViewById(R.id.adminViewUserWelcome);
-        adminList = findViewById(R.id.adminList);
-        deleteButton = findViewById(R.id.userDeleteButton);
+        recipeList = new ArrayList<>();
+        spinner = (Spinner)findViewById(R.id.spinner);
+        approveButton = findViewById(R.id.approveButton);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        String welcomeMessage = "Here are all users" + "\n";
-        adminList.append(welcomeMessage);
-        ParseQuery<ParseUser> query = ParseUser.getQuery();
-        query.findInBackground((users, e) -> {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("recipe");
+        query.findInBackground((recipes, e) -> {
             if(e == null){
-                for(ParseUser user1: users){
-                    if (user1.getBoolean("admin")) {
-                        continue;
+                for(ParseObject recipe1: recipes){
+                    if(!recipe1.getBoolean("approved")) {
+                        String recipeName = recipe1.getString("name");
+                        recipeList.add(recipeName);
+                        this.recipes.addAll(recipes);
                     }
-                    String list = "";
-                    String username = user1.getString("username");
-                    list += "Username: " + username + "\n";
-                    adminList.append(list);
+
                 }
             }
+            spinner.setAdapter(new ArrayAdapter<String>(AdminApprove.this, android.R.layout.simple_spinner_dropdown_item, recipeList));
+
         });
 
-        deleteButton.setOnClickListener(new View.OnClickListener() {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), AdminDeleteUser.class);
-                startActivity(intent);
+            public void onItemSelected(AdapterView<?> adapterView, View view, int selected, long l) {
+                //String selectedRecipe = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
+                approveButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        approveRecipe(selected);
+
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
+    }
 
-
-
+    private void approveRecipe(int selected){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("recipe");
+        String selectedRecipe = recipes.get(selected).getObjectId();
+        query.getInBackground(selectedRecipe,(object, e) -> {
+            if(e == null){
+                object.put("approved",true);
+                object.saveInBackground();
+                Toast.makeText(AdminApprove.this, "Approved recipe", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(AdminApprove.this, "Couldn't approve recipe", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -113,6 +136,4 @@ public class AdminViewUsers extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
 }

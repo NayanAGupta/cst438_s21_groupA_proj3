@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void done(ParseUser user, ParseException e) {
                             if (ParseUser.getCurrentUser().getBoolean("admin")) {
-                                Intent intent = new Intent(getApplicationContext(), AdminHomepageActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), AdminViewUsers.class);
                                 startActivity(intent);
                             }
                             else if (user != null){
