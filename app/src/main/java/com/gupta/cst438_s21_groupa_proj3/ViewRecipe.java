@@ -53,6 +53,7 @@ public class ViewRecipe extends AppCompatActivity {
         recipeImage = findViewById(R.id.viewRecipeImage);
         recipeInstructions = findViewById(R.id.viewRecipeInstructions);
         toolbar = findViewById(R.id.toolbar);
+        favButton = findViewById(R.id.addFav);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -101,6 +102,8 @@ public class ViewRecipe extends AppCompatActivity {
             public void onClick(View view) {
                 ParseUser currUser = ParseUser.getCurrentUser();
                 String currUserBookId = currUser.getString("recipeBookId");
+                Log.d("Book", currUserBookId);
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("recipeBook");
                 query.getInBackground(currUserBookId, new GetCallback<ParseObject>() {
                     @Override
                     public void done(ParseObject object, ParseException e) {
@@ -110,10 +113,10 @@ public class ViewRecipe extends AppCompatActivity {
                             // check if book already has id
                             //Log.d("book", "Recent recipe id: "+recentRecipeId);
                             recipesList = object.getList("recipeIDList");
-                            if (!recipesList.contains(givenObjectId)) {
-                                object.add("recipeIDList", givenObjectId);
-                                object.saveInBackground();
-                                Toast.makeText(getApplicationContext(),"Added recipe to your book",Toast.LENGTH_LONG).show();
+                            if (recipesList == null || !recipesList.contains(givenObjectId)) {
+                                    object.add("recipeIDList", givenObjectId);
+                                    object.saveInBackground();
+                                    Toast.makeText(getApplicationContext(), "Added recipe to your book", Toast.LENGTH_LONG).show();
                             }
                             else{
                                 Toast.makeText(getApplicationContext(),"You already have this recipe to your book",Toast.LENGTH_LONG).show();
