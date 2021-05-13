@@ -11,14 +11,25 @@
         layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/addFav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_alignParentRight="true"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="monospace"
+        android:textStyle="bold"
+        android:text="@string/favorite"
+        android:textSize="24sp" />
 
     <ImageView
         android:id="@+id/viewRecipeImage"
-        android:layout_width="300dp"
-        android:layout_height = "300dp"
-        android:text="@string/image"
+        android:layout_width="wrap_content"
+        android:layout_height = "wrap_content"
+        android:layout_marginHorizontal="20dp"
         android:layout_below="@id/toolbar"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"  />
 
     <androidx.core.widget.NestedScrollView
@@ -29,7 +40,7 @@
         android:scrollbars="vertical"
         android:fillViewport="true"
         android:visibility="visible"
-        android:layout_marginHorizontal="25dp"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp" >
 
         <TextView
@@ -37,8 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="casual"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
     </androidx.core.widget.NestedScrollView>
-
 
 </RelativeLayout>
