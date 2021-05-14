@@ -31,12 +31,15 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
         public TextView mTextView1;
         public TextView mTextView2;
         public Button mButton;
+        public Button mButton2;
         public ExampleViewHolder(View itemView, OnItemClickListener listener) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.imageView);
             mTextView1 = itemView.findViewById(R.id.textView);
             mTextView2 = itemView.findViewById(R.id.textView2);
             mButton = itemView.findViewById(R.id.viewButton);
+
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -62,6 +65,15 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
 
                 }
             });
+
+//            mButton2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(view.getContext(), ViewFavoriteRecipe.class);
+//                view.getContext().startActivity(intent);
+//
+//                }
+//            });
         }
 
     }
