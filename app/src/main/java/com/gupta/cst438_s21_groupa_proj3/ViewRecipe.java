@@ -119,6 +119,7 @@ public class ViewRecipe extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Added recipe to your book", Toast.LENGTH_LONG).show();
                             }
                             else{
+
                                 Toast.makeText(getApplicationContext(),"You already have this recipe to your book",Toast.LENGTH_LONG).show();
                             }
 

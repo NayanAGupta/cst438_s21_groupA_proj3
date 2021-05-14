@@ -62,8 +62,8 @@ public class Favorites extends AppCompatActivity {
 
         ArrayList<ExampleItem> exampleList = new ArrayList<>();
 
-        mRecyclerView = findViewById(R.id.recyclerView);
-        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView = findViewById(R.id.favRecyclerView);
+//        mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mAdapter = new ExampleAdapter(exampleList);
         mRecyclerView.setLayoutManager(mLayoutManager);

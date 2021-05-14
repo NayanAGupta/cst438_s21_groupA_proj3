@@ -5,14 +5,19 @@
     android:layout_height="match_parent"
     tools:context=".Search">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="411dp"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/toolbar"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="191dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="129dp"
         android:background="@color/white"
         android:padding="4dp"
