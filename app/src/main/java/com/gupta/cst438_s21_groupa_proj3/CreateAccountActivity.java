@@ -75,12 +75,12 @@ public class CreateAccountActivity extends AppCompatActivity {
                                                         foundUser.put("recipeBookIdPointer",foundBook);
                                                         foundUser.saveInBackground();
                                                     }else {
-                                                        Toast.makeText(getApplicationContext(),"Error:" +e.getMessage(),Toast.LENGTH_LONG).show();
+                                                        Toast.makeText(getApplicationContext(),"Error:" +e.getMessage(),Toast.LENGTH_SHORT).show();
                                                     }
                                                 }
                                             });
                                         } else {
-                                            Toast.makeText(getApplicationContext(),"Error:" +e.getMessage(),Toast.LENGTH_LONG).show();
+                                            Toast.makeText(getApplicationContext(),"Error:" +e.getMessage(),Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
@@ -90,7 +90,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                             }
                             else{
                                 //invalid account creation
-                                Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

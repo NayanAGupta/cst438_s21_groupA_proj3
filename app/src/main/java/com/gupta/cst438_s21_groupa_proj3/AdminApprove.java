@@ -49,8 +49,11 @@ public class AdminApprove extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("recipe");
+        query.whereEqualTo("approved", false);
         query.findInBackground((recipes, e) -> {
             if(e == null){
                 for(ParseObject recipe1: recipes){
@@ -89,18 +92,25 @@ public class AdminApprove extends AppCompatActivity {
         String selectedRecipe = recipes.get(selected).getObjectId();
         query.getInBackground(selectedRecipe,(object, e) -> {
             if(e == null){
-                if(object.getBoolean("approved")){
+                           object.saveInBackground();
+                    Toast.makeText(AdminApprove.this, "Approved " + recipe, Toast.LENGTH_SHORT).show();
+                }   if(object.getBoolean("approved")){
                     Toast.makeText(AdminApprove.this, recipe+" already approved", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     object.put("approved", true);
-                    object.saveInBackground();
-                    Toast.makeText(AdminApprove.this, "Approved " + recipe, Toast.LENGTH_SHORT).show();
+
+
                 }
 
-            }
-
         });
+    }
+
+    // Back Button
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     @Override

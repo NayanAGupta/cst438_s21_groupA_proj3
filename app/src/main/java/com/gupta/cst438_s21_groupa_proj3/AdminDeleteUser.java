@@ -61,6 +61,8 @@ public class AdminDeleteUser extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         ParseQuery<ParseUser> query = ParseUser.getQuery();
         query.findInBackground((users, e) -> {
@@ -87,34 +89,6 @@ public class AdminDeleteUser extends AppCompatActivity {
                     public void onClick(View view) {
                         //DELETE USER and their recipebook
                         deleteUser(selected);
-
-                        //not nessecary, do this feature later
-//                        //query for user using username
-//                        ParseQuery<ParseUser> query = ParseUser.getQuery();
-//                        query.whereEqualTo("username",user);
-//                        query.getFirstInBackground(new GetCallback<ParseUser>() {
-//                            @Override
-//                            public void done(ParseUser object, ParseException e) {
-//                                if (e == null){
-//                                    Log.d("book","Found user " +object.getUsername() + " userId: " +object.getObjectId());
-//                                    params.put("userId", object.getObjectId()); //add selected user to map for removal
-//                                    //cloud code call
-//                                    ParseCloud.callFunctionInBackground("deleteUserWithId", params, new FunctionCallback<Object>() {
-//                                        public void done(Object result, ParseException e) {
-//                                            if (e == null) {
-//                                                // successfully removed user
-//                                                Log.d("book","Found user:" +user+" has been removed");
-//                                            } else{
-//                                                Log.d("book", "Error trying to remove user:" +e.getMessage());
-//                                            }
-//                                        }
-//                                    });
-//
-//                                } else {
-//                                    Log.d("book","Error querying for user: " + e.getMessage());
-//                                }
-//                            }
-//                        });
                     }
                 });
             }
@@ -142,6 +116,13 @@ public class AdminDeleteUser extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    // Back Button
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     //  Options menu control switch

@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }else{
                                 //no user found
-                                Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
