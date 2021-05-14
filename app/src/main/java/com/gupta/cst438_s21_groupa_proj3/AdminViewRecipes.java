@@ -34,6 +34,7 @@ public class AdminViewRecipes extends AppCompatActivity {
         return true;
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +46,8 @@ public class AdminViewRecipes extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         String welcomeMessage = "Here are all recipes" + "\n";
         adminList.append(welcomeMessage);
@@ -67,9 +70,13 @@ public class AdminViewRecipes extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
-
-
+    // Back Button
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     @Override

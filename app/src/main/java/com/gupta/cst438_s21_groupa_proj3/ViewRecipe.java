@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -24,6 +25,7 @@ import com.parse.ParseUser;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ViewRecipe extends AppCompatActivity {
@@ -64,8 +66,8 @@ public class ViewRecipe extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         String givenObjectId = extras.getString("givenObjectId");
         //query for recipe given recipe Id
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("recipe");
-        query.getInBackground(givenObjectId, new GetCallback<ParseObject>() {
+        ParseQuery<ParseObject> getRecipe = ParseQuery.getQuery("recipe");
+        getRecipe.getInBackground(givenObjectId, new GetCallback<ParseObject>() {
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
 
@@ -97,6 +99,25 @@ public class ViewRecipe extends AppCompatActivity {
             }
         });
 
+        ParseUser currUser = ParseUser.getCurrentUser();
+        String currUserBookId = currUser.getString("recipeBookId");
+        Log.d("Book", currUserBookId);
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("recipeBook");
+        query.getInBackground(currUserBookId, new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                if (e == null){
+                    recipesList = object.getList("recipeIDList");
+                    if (recipesList == null || !recipesList.contains(givenObjectId)) {
+                        favButton.setBackgroundColor(Color.RED);
+                    }
+                    else{
+                        favButton.setBackgroundColor(Color.YELLOW);
+                    }
+                }
+            }
+        });
+
         favButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,16 +137,19 @@ public class ViewRecipe extends AppCompatActivity {
                             if (recipesList == null || !recipesList.contains(givenObjectId)) {
                                 object.add("recipeIDList", givenObjectId);
                                 object.saveInBackground();
-                                Toast.makeText(getApplicationContext(), "Added recipe to your book", Toast.LENGTH_LONG).show();
+                                favButton.setBackgroundColor(Color.YELLOW);
+                                Toast.makeText(getApplicationContext(), "Added recipe to your book", Toast.LENGTH_SHORT).show();
                             }
                             else{
-
-                                Toast.makeText(getApplicationContext(),"You already have this recipe to your book",Toast.LENGTH_LONG).show();
+                                object.removeAll("recipeIDList", Collections.singleton(givenObjectId));
+                                object.saveInBackground();
+                                favButton.setBackgroundColor(Color.RED);
+                                Toast.makeText(getApplicationContext(),"Removed recipe from your book",Toast.LENGTH_SHORT).show();
                             }
 
 
                         } else {
-                            Toast.makeText(getApplicationContext(),"Error querying for recipe book: "+e.getMessage(),Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),"Error querying for recipe book: "+e.getMessage(),Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

@@ -73,9 +73,13 @@ public class AdminViewUsers extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
-
-
+    // Back Button
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     @Override

@@ -90,14 +90,12 @@ public class Favorites extends AppCompatActivity {
                                         exampleList.add(new ExampleItem(recipe.getString("imageURL"), recipe.getString("name"), "ID: " + recipe.getObjectId()));
                                         mAdapter.notifyItemInserted(exampleList.size() - 1);
                                         Log.d("book", "Found: " + recipe.getString("name") + " ID: " + recipe.getObjectId());
-                                    } else {
-                                        Toast.makeText(getApplicationContext(), "Error querying for recipe: " + e.getMessage(), Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
                         }
                     } else {
-                        Toast.makeText(getApplicationContext(), "No favorites", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "No favorites", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Log.d("book", "Error searching for recipe book: " + e.getMessage());

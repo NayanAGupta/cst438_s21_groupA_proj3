@@ -65,7 +65,7 @@ public class Submit extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(recipeName.getText().toString().isEmpty() || recipeList.getText().toString().isEmpty() || recipeDescription.getText().toString().isEmpty() || recipeImage.getText().toString().isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Fill in all fields",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Fill in all fields",Toast.LENGTH_SHORT).show();
                 }
                 else{
                     ParseObject recipe = new ParseObject("recipe");
@@ -102,11 +102,11 @@ public class Submit extends AppCompatActivity {
                                     }
                                 });
 
-                                Toast.makeText(getApplicationContext(),"Submission Successful",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),"Submission Successful",Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(), HomepageActivity.class);
                                 startActivity(intent);
                             } else {
-                                Toast.makeText(getApplicationContext(),"Error querying for recipe book: "+e.getMessage(),Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),"Error querying for recipe book: "+e.getMessage(),Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
