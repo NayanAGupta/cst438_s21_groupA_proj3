@@ -31,7 +31,8 @@
   ![](wireframes/cook7.PNG)
   ![](wireframes/cook8.PNG)
   ![](wireframes/cook9.PNG)
-# Technologies:
+# Technologies & APIs:
   Android Studio
-  
-  https://api2.bigoven.com/
+  Parse & Back4App
+  Picasso
+ 
